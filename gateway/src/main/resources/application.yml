@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: system
+          uri: http://127.0.0.1:9001
+          predicates:
+            - Path=/system/**
+
+
+server:
+  port: 9000
+
+eureka:
+  client:
+
+    service-url:http://127.0.0.1:8761/eureka/
+
+
