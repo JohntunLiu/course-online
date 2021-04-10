@@ -1,12 +1,11 @@
 spring:
   application:
-    name: eureka
+    name: system
 
 server:
   port: 9001
 
 eureka:
   client:
-    fetch-registry: false
-    register-with-eureka: false
+    service-url:http://127.0.0.1:8761/eureka/
 
