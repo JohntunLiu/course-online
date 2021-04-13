@@ -1,20 +1,25 @@
 package com.course.system.controller;
 
 
-import com.course.system.domain.User;
-import com.course.system.service.UserServiceTest;
+import com.course.server.domain.User;
+import com.course.server.service.UserServiceTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+
 @RestController
 //@EnableEurekaClient
+@ComponentScan({"com.course.server.service"})
+
 public class TestController {
 
-    @Autowired
+    @Resource
     private UserServiceTest userService;
 
     @RequestMapping("/test")

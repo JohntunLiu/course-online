@@ -4,14 +4,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 import tk.mybatis.spring.annotation.MapperScan;
 
 import javax.annotation.PostConstruct;
 
 @SpringBootApplication
 @Slf4j
-@MapperScan("com.course.system.mapper")
-
+@MapperScan("com.course.server.mapper")
 public class SystemApplication {
 //	private static final Logger LOG = LoggerFactory.getLogger(EurekaApplication.class);
 

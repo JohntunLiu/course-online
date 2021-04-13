@@ -7,7 +7,6 @@
 		<module>eureka</module>
 		<module>system</module>
         <module>gateway</module>
-		<module>system2</module>
 		<module>server</module>
 	</modules>
 	<parent>
@@ -62,11 +61,9 @@
 			</dependency>
 
 
-
-
 			<dependency>
 				<groupId>com</groupId>
-				<artifactId>course</artifactId>
+				<artifactId>server</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 

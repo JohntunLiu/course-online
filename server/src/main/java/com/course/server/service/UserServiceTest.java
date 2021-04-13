@@ -1,12 +1,12 @@
 package com.course.server.service;
 
-import com.course.system.domain.User;
-import com.course.system.mapper.UserMapper;
+import com.course.server.domain.User;
+import com.course.server.mapper.UserMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
-@Service
+@Service("UserServiceTest")
 public class UserServiceTest {
 
     @Resource
