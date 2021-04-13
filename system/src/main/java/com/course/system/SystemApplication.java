@@ -28,7 +28,7 @@ public class SystemApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SystemApplication.class, args);
 		log.info("启动成功！！");
-		log.info("System地址: \thttp://127.0.0.1:"+port2);
+		log.info("System地址: \thttp://127.0.0.1:"+port2+"/system/test");
 	}
 
 

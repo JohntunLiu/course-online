@@ -21,5 +21,6 @@ mybatis:
 eureka:
   client:
     service-url:http://127.0.0.1:8761/eureka/
-
+logging:
+  level: com.course.system.mapper=trace
 
