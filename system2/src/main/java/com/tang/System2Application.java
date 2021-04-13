@@ -1,18 +1,15 @@
-package com.course.system;
+package com.tang;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import tk.mybatis.spring.annotation.MapperScan;
 
 import javax.annotation.PostConstruct;
 
 @SpringBootApplication
 @Slf4j
-@MapperScan("com.course.system.mapper")
-
-public class SystemApplication {
+public class System2Application {
 //	private static final Logger LOG = LoggerFactory.getLogger(EurekaApplication.class);
 
 	private static String port2;
@@ -26,7 +23,7 @@ public class SystemApplication {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(SystemApplication.class, args);
+		SpringApplication.run(System2Application.class, args);
 		log.info("启动成功！！");
 		log.info("System地址: \thttp://127.0.0.1:"+port2);
 	}

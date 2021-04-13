@@ -2,14 +2,21 @@ spring:
   application:
     name: system
   datasource:
-    url: jdbc:mysql://localhost:3306/course?characterEncoding=UTF8&autoReconnect=true
-    password: root
-    name: course
+    url: jdbc:mysql://localhost:3306/couurse?serverTimezone=UTC
     driver-class-name: com.mysql.jdbc.Driver
+    username: course
+    password: root
+
+
 server:
   port: 9001
   servlet:
     context-path: /system
+
+mybatis:
+  type-aliases-package: com.course.system.domain
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 eureka:
   client:
