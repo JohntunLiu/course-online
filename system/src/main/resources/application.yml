@@ -1,6 +1,11 @@
 spring:
   application:
     name: system
+  datasource:
+    url: jdbc:mysql://localhost:3306/course?characterEncoding=UTF8&autoReconnect=true
+    password: root
+    name: course
+    driver-class-name: com.mysql.jdbc.Driver
 server:
   port: 9001
   servlet:
@@ -9,4 +14,5 @@ server:
 eureka:
   client:
     service-url:http://127.0.0.1:8761/eureka/
+
 
