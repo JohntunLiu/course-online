@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: business
+
+server:
+  port: 9002
+  servlet:
+    context-path: /business
+
+eureka:
+  client:
+    service-url:http://127.0.0.1:8761/eureka/
+
+
