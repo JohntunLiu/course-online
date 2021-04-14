@@ -1,6 +1,7 @@
 package com.course.system.controller;
 
 
+import com.course.server.domain.Test;
 import com.course.server.domain.User;
 import com.course.server.service.UserServiceTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RestController
 //@EnableEurekaClient
@@ -32,6 +34,9 @@ public class TestController {
         return userService.queryById(id);
     }
 
-
+    @RequestMapping("/list")
+    public List<Test> findAll() {
+        return userService.findAll();
+    }
 
 }

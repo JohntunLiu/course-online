@@ -6,11 +6,11 @@ spring:
     username: course
     password: root
 
-
 mybatis:
   type-aliases-package: com.course.system.domain
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:/mapper/**/*.xml
 
 
 
