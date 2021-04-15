@@ -13,10 +13,11 @@
     </thead>
 
     <tbody>
-    <tr>
-      <td>123</td>
-      <td>test</td>
-      <td>1111</td>
+
+    <tr v-for="chapter in chapters">
+      <td>{{ chapter.id }}</td>
+      <td>{{ chapter.name }}</td>
+      <td>{{ chapter.courseId }}</td>
 
       <td>
         <div class="hidden-sm hidden-xs btn-group">
@@ -81,6 +82,11 @@
 <script>
 export default {
   name: 'chapter',
+  data: function () {
+    return{
+      chapters: []
+    }
+  },
 
   mounted: function () {
     // sidebar激活样式方法一
@@ -94,6 +100,7 @@ export default {
       let _this = this;
       _this.$ajax.get('http://127.0.0.1:9002/business/admin/chapter/list').then((response) => {
         console.log("查询结果：", response);
+        _this.chapters = response.data;
       });
     }
   }
