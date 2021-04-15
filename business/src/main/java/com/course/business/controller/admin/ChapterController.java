@@ -5,13 +5,12 @@ import com.course.server.domain.Chapter;
 import com.course.server.domain.Test;
 import com.course.server.domain.User;
 import com.course.server.dto.ChapterDto;
+import com.course.server.dto.PageDto;
 import com.course.server.service.ChapterService;
 import com.course.server.service.UserServiceTest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -20,6 +19,7 @@ import java.util.List;
 @RestController
 @ComponentScan({"com.course.server"})
 @RequestMapping("/admin/chapter")
+@Slf4j
 public class ChapterController {
 
     @Resource
@@ -36,8 +36,10 @@ public class ChapterController {
 //    }
 
     @RequestMapping("/list")
-    public ArrayList<ChapterDto> list() {
-        return chapterService.list();
+    public PageDto list(@RequestBody PageDto pageDto) {
+        chapterService.list(pageDto);
+        log.info("pageDto：{}",pageDto);
+        return pageDto;
     }
 
 }
