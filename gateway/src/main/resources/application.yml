@@ -6,14 +6,14 @@ spring:
 
       routes:
         - id: system
-          uri: http://127.0.0.1:9001
-#          uri: lb://system
+#          uri: http://127.0.0.1:9001
+          uri: lb://system
           predicates:
             - Path=/system/**
 
         - id: business
-          uri: http://127.0.0.1:9002
-#          uri: lb://business
+#          uri: http://127.0.0.1:9002
+          uri: lb://business
           predicates:
             - Path=/business/**
 
