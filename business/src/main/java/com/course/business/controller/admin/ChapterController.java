@@ -38,7 +38,7 @@ public class ChapterController {
     @RequestMapping("/list")
     public PageDto list(@RequestBody PageDto pageDto) {
         chapterService.list(pageDto);
-        log.info("pageDto：{}",pageDto);
+//        log.info("pageDto：{}",pageDto);
         return pageDto;
     }
 
