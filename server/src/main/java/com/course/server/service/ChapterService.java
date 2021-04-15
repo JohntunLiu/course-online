@@ -3,6 +3,7 @@ package com.course.server.service;
 import com.course.server.domain.Chapter;
 import com.course.server.dto.ChapterDto;
 import com.course.server.mapper.ChapterMapper;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class ChapterService {
 
     public ArrayList<ChapterDto> list() {
 
+        PageHelper.startPage(2, 2);
         List<Chapter> chapters = chapterMapper.selectByExample(null);
         ArrayList<ChapterDto> chapterDtos = new ArrayList<ChapterDto>();
 
