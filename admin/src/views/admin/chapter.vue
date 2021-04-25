@@ -3,13 +3,20 @@
   <div>
 
     <p>
+
+      <!-- Button trigger modal -->
+      <button @click="add()" class="btn btn-white btn-default btn-round eye-protector-processed" style="transition: background-color 0.3s ease 0s; border-color: rgba(0, 0, 0, 0.35); color: rgb(0, 0, 0); background-color: rgb(193, 230, 198);">
+        <i class="ace-icon fa fa-edit " ></i>
+        新增
+      </button>
+      &nbsp;
       <button @click="list()" class="btn btn-white btn-default btn-round eye-protector-processed" style="transition: background-color 0.3s ease 0s; border-color: rgba(0, 0, 0, 0.35); color: rgb(0, 0, 0); background-color: rgb(193, 230, 198);">
-        <i class="ace-icon fa fa-refresh red2 eye-protector-processed" style="border-color: rgba(0, 0, 0, 0.35); color: rgb(0, 0, 0);"></i>
+        <i class="ace-icon fa fa-refresh " ></i>
         刷新
       </button>
     </p>
 
-    <Pagination ref="pagination" v-bind:list="list"></Pagination>
+    <Pagination ref="pagination" v-bind:list="list" v-bind:itemCount="8" ></Pagination>
     <table id="simple-table" class="table  table-bordered table-hover">
       <thead>
       <tr>
@@ -86,7 +93,40 @@
 
       </tbody>
     </table>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" >表单</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
 
+              <div class="form-group">
+                <label  class="col-sm-2 control-label">名称</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control"  placeholder="名称">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label  class="col-sm-2 control-label">课程ID</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control"  placeholder="课程ID">
+                </div>
+              </div>
+
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary">保存</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 </template>
@@ -107,13 +147,19 @@ export default {
     // sidebar激活样式方法一
     // this.$parent.activeSidebar("business-chapter-sidebar");
     let _this = this;
-    _this.list(1);
-    _this.$refs.pagination.size = 5;
+    _this.$refs.pagination.size = 10;
+    _this.list();
+
   },
 
   methods: {
+    add() {
+      let _this = this;
+      $(".modal").modal("show");
+    },
     list(page) {
       let _this = this;
+
       _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/list',{
         page: page,
         size: _this.$refs.pagination.size,
