@@ -6,6 +6,7 @@ import com.course.server.domain.Test;
 import com.course.server.domain.User;
 import com.course.server.dto.ChapterDto;
 import com.course.server.dto.PageDto;
+import com.course.server.dto.ResponseDto;
 import com.course.server.service.ChapterService;
 import com.course.server.service.UserServiceTest;
 import lombok.extern.slf4j.Slf4j;
@@ -30,23 +31,27 @@ public class ChapterController {
         return "success";
     }
 
-//    @GetMapping("/user/{id}")
-//    public User queryById(@PathVariable Long id) {
-//        return chapterService.queryById(id);
-//    }
+
 
     @RequestMapping("/list")
-    public PageDto list(@RequestBody PageDto pageDto) {
+    public ResponseDto list(@RequestBody PageDto pageDto) {
+        ResponseDto responseDto = new ResponseDto();
+
         chapterService.list(pageDto);
-//        log.info("pageDto：{}",pageDto);
-        return pageDto;
+        log.info("pageDto：{}",pageDto);
+        responseDto.setContent(pageDto);
+        return responseDto;
     }
 
     @RequestMapping("/save")
-    public ChapterDto save(@RequestBody ChapterDto chapterDto) {
+    public ResponseDto save(@RequestBody ChapterDto chapterDto) {
+        ResponseDto responseDto = new ResponseDto();
+
         chapterService.save(chapterDto);
         log.info("pageDto：{}",chapterDto);
-        return chapterDto;
+        responseDto.setContent(chapterDto);
+
+        return responseDto;
     }
 
 }

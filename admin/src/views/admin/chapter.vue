@@ -10,7 +10,7 @@
         新增
       </button>
       &nbsp;
-      <button @click="list()" class="btn btn-white btn-default btn-round eye-protector-processed" style="transition: background-color 0.3s ease 0s; border-color: rgba(0, 0, 0, 0.35); color: rgb(0, 0, 0); background-color: rgb(193, 230, 198);">
+      <button @click="list(1)" class="btn btn-white btn-default btn-round eye-protector-processed" style="transition: background-color 0.3s ease 0s; border-color: rgba(0, 0, 0, 0.35); color: rgb(0, 0, 0); background-color: rgb(193, 230, 198);">
         <i class="ace-icon fa fa-refresh " ></i>
         刷新
       </button>
@@ -94,7 +94,7 @@
       </tbody>
     </table>
     <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div  id="form-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -156,7 +156,7 @@ export default {
   methods: {
     add() {
       let _this = this;
-      $(".modal").modal("show");
+      $("#form-modal").modal("show");
     },
 
     list(page) {
@@ -167,8 +167,9 @@ export default {
         size: _this.$refs.pagination.size,
       }).then((response) => {
         console.log("查询结果：", response);
-        _this.chapters = response.data.list;
-        _this.$refs.pagination.render(page, response.data.total);
+        let resp = response.data;
+        _this.chapters = resp.content.list;
+        _this.$refs.pagination.render(page, resp.content.total);
       });
     },
 
@@ -179,6 +180,11 @@ export default {
         _this.chapter
       ).then((response) => {
         console.log("保存结果：", response);
+        let resp = response.data;
+        if (resp.success) {
+          $("#form-modal").modal("hide");
+
+        }
 
       });
     }
