@@ -33,7 +33,7 @@ public class ChapterController {
 
 
 
-    @RequestMapping("/list")
+    @PostMapping("/list")
     public ResponseDto list(@RequestBody PageDto pageDto) {
         ResponseDto responseDto = new ResponseDto();
 
@@ -43,13 +43,22 @@ public class ChapterController {
         return responseDto;
     }
 
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public ResponseDto save(@RequestBody ChapterDto chapterDto) {
         ResponseDto responseDto = new ResponseDto();
 
         chapterService.save(chapterDto);
         log.info("pageDto：{}",chapterDto);
         responseDto.setContent(chapterDto);
+
+        return responseDto;
+    }
+
+    @PostMapping("/delete/{id}")
+    public ResponseDto save(@PathVariable String   id) {
+        ResponseDto responseDto = new ResponseDto();
+
+        chapterService.delete(id);
 
         return responseDto;
     }
