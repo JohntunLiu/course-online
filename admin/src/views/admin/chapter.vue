@@ -149,7 +149,7 @@ export default {
     // this.$parent.activeSidebar("business-chapter-sidebar");
     let _this = this;
     _this.$refs.pagination.size = 10;
-    _this.list();
+    _this.list(1);
 
   },
 
@@ -183,6 +183,8 @@ export default {
         let resp = response.data;
         if (resp.success) {
           $("#form-modal").modal("hide");
+          _this.list(1);
+
 
         }
 
