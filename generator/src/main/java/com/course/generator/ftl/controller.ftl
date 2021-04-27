@@ -1,4 +1,4 @@
-package com.course.business.controller.admin;
+package com.course.${module}.controller.admin;
 
 
 import com.course.server.dto.${Domain}Dto;
@@ -18,7 +18,7 @@ import javax.annotation.Resource;
 @Slf4j
 public class ${Domain}Controller {
 
-public static final String BUSINESS_NAME = "大章";
+public static final String BUSINESS_NAME = "${tableNameZh}";
 
 
 @Resource
