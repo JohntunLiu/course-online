@@ -17,6 +17,20 @@
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com</groupId>
+            <artifactId>server</artifactId>
+        </dependency>
+
+        <!-- 集成mybatis -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+
+
     </dependencies>
 
     <properties>
