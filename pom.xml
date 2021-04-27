@@ -9,6 +9,7 @@
         <module>gateway</module>
 		<module>server</module>
 		<module>business</module>
+		<module>generator</module>
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -75,10 +76,18 @@
 				<version>1.2.10</version>
 			</dependency>
 
+			<!--日志输出-->
 			<dependency>
 				<groupId>com.alibaba</groupId>
 				<artifactId>fastjson</artifactId>
 				<version>1.2.60</version>
+			</dependency>
+
+			<!-- 模板引擎freemarker -->
+			<dependency>
+				<groupId>org.freemarker</groupId>
+				<artifactId>freemarker</artifactId>
+				<version>2.3.29</version>
 			</dependency>
 
 		</dependencies>
