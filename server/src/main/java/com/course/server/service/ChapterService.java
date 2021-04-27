@@ -32,25 +32,16 @@ public class ChapterService {
         PageInfo<Chapter> pageInfo = new PageInfo<>(chapters);
         pageDto.setTotal(pageInfo.getTotal());
 
-//        List<ChapterDto> chapterDtoList = new ArrayList<ChapterDto>();
 
         List<ChapterDto> chapterDtoList = CopyUtil.copyList(chapters, ChapterDto.class);
 
-//        for (Chapter chapter : chapters) {
-//            ChapterDto chapterDto = new ChapterDto();
-//            BeanUtils.copyProperties(chapter,chapterDto);
-//            chapterDtoList.add(chapterDto);
-//        }
+
         pageDto.setList(chapterDtoList);
 
 
     }
 
     public void save(ChapterDto chapterDto) {
-//        chapterDto.setId(UuidUtil.getShortUuid());
-//        Chapter chapter = new Chapter();
-//        BeanUtils.copyProperties(chapterDto,chapter);
-//        chapterMapper.insert(chapter);
 
         Chapter chapter = CopyUtil.copy(chapterDto, Chapter.class);
         if (StringUtils.isEmpty(chapterDto.getId())) {
@@ -85,13 +76,14 @@ public class ChapterService {
     /**
      * 查询某一课程下的所有章
      */
-//    public List<ChapterDto> listByCourse(String courseId) {
-//        ChapterExample example = new ChapterExample();
-//        example.createCriteria().andCourseIdEqualTo(courseId);
-//        List<Chapter> chapterList = chapterMapper.selectByExample(example);
-//        List<ChapterDto> chapterDtoList = CopyUtil.copyList(chapterList, ChapterDto.class);
-//        return chapterDtoList;
-//    }
+
+/*    public List<ChapterDto> listByCourse(String courseId) {
+        ChapterExample example = new ChapterExample();
+        example.createCriteria().andCourseIdEqualTo(courseId);
+        List<Chapter> chapterList = chapterMapper.selectByExample(example);
+        List<ChapterDto> chapterDtoList = CopyUtil.copyList(chapterList, ChapterDto.class);
+        return chapterDtoList;
+    }*/
 
 
 }
