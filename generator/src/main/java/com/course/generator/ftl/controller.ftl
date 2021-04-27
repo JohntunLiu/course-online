@@ -18,7 +18,7 @@ import javax.annotation.Resource;
 @Slf4j
 public class ${Domain}Controller {
 
-public static final String BUSINESS_NAME = "${tableNameZh}";
+public static final String BUSINESS_NAME = "${tableNameCn}";
 
 
 @Resource
