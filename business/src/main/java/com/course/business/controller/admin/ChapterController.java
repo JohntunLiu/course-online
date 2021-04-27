@@ -24,6 +24,9 @@ import java.util.List;
 @Slf4j
 public class ChapterController {
 
+    public static final String BUSINESS_NAME = "大章";
+
+
     @Resource
     private ChapterService chapterService;
 
@@ -46,6 +49,7 @@ public class ChapterController {
 
     @PostMapping("/save")
     public ResponseDto save(@RequestBody ChapterDto chapterDto) {
+
 
         ValidatorUtil.require(chapterDto.getName(),"名称");
         ValidatorUtil.require(chapterDto.getCourseId(),"课程ID");
