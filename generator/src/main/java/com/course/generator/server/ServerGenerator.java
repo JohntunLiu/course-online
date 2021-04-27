@@ -9,6 +9,7 @@ import java.util.HashMap;
 public class ServerGenerator {
 
     static String toServicePath = "server\\src\\main\\java\\com\\course\\server\\service\\";
+    static String toControllerPath = "business\\src\\main\\java\\com\\course\\business\\controller\\admin\\";
 
 
 
@@ -21,5 +22,8 @@ public class ServerGenerator {
 
         FreemarkerUtil.initConfig("service.ftl");
         FreemarkerUtil.generator(toServicePath + Domain +"Service.java", map);
+
+        FreemarkerUtil.initConfig("controller.ftl");
+        FreemarkerUtil.generator(toControllerPath + Domain +"Controller.java", map);
     }
 }
