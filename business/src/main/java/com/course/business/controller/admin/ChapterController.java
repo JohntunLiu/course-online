@@ -30,23 +30,23 @@ public class ChapterController {
     @Resource
     private ChapterService chapterService;
 
-    @RequestMapping("/test")
-    public String test() {
-        return "success";
-    }
-
-
-
+    /**
+     * 查询
+     *
+     */
     @PostMapping("/list")
     public ResponseDto list(@RequestBody PageDto pageDto) {
         ResponseDto responseDto = new ResponseDto();
 
         chapterService.list(pageDto);
-        log.info("pageDto：{}",pageDto);
         responseDto.setContent(pageDto);
         return responseDto;
     }
 
+    /**
+     * 保存
+     * 有id时更新 无id时插入
+     */
     @PostMapping("/save")
     public ResponseDto save(@RequestBody ChapterDto chapterDto) {
 
@@ -59,12 +59,15 @@ public class ChapterController {
         ResponseDto responseDto = new ResponseDto();
 
         chapterService.save(chapterDto);
-        log.info("pageDto：{}",chapterDto);
         responseDto.setContent(chapterDto);
 
         return responseDto;
     }
 
+    /**
+     * 删除
+     *
+     */
     @PostMapping("/delete/{id}")
     public ResponseDto save(@PathVariable String   id) {
         ResponseDto responseDto = new ResponseDto();

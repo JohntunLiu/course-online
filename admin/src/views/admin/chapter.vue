@@ -127,6 +127,11 @@ export default {
       $("#form-modal").modal("show");
     },
 
+    /**
+     * 点击【查询】
+     * @param page
+     */
+
     list(page) {
       let _this = this;
       Loading.show();
@@ -137,13 +142,17 @@ export default {
       }).then((response) => {
         Loading.hide();
 
-        console.log("查询结果：", response);
         let resp = response.data;
         _this.chapters = resp.content.list;
         _this.$refs.pagination.render(page, resp.content.total);
       });
     },
 
+    /**
+     * 点击【保存】
+     * id有值时更新，无值时插入
+     *
+     */
     save() {
       let _this = this;
 
@@ -160,7 +169,6 @@ export default {
       ).then((response) => {
         Loading.hide();
 
-        console.log("保存结果：", response);
         let resp = response.data;
         if (resp.success) {
           $("#form-modal").modal("hide");
@@ -173,6 +181,10 @@ export default {
       });
     },
 
+    /**
+     * 点击【删除】
+     *
+     */
     del(id) {
       let _this = this;
 
@@ -183,7 +195,6 @@ export default {
                 _this.chapter
             ).then((response) => {
               Loading.hide();
-              console.log("删除结果：", response);
               let resp = response.data;
               if (resp.success) {
                 _this.list(1);
@@ -193,33 +204,6 @@ export default {
           }
 
       );
-
-      // Swal.fire({
-      //   title: '确认删除?',
-      //   text: "删除后不可恢复，确认删除？",
-      //   icon: 'warning',
-      //   showCancelButton: true,
-      //   confirmButtonColor: '#3085d6',
-      //   cancelButtonColor: '#d33',
-      //   confirmButtonText: '确认！'
-      // }).then((result) => {
-      //   if (result.isConfirmed) {
-      //     Loading.show();
-      //     _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/delete/'+id,
-      //         _this.chapter
-      //     ).then((response) => {
-      //       Loading.hide();
-      //       console.log("删除结果：", response);
-      //       let resp = response.data;
-      //       if (resp.success) {
-      //         _this.list(1);
-      //         Toast.success("删除成功！");
-      //       }
-      //     })
-      //   }
-      // })
-
-
     }
   }
 
