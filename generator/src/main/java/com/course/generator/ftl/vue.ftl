@@ -20,7 +20,10 @@
     <table id="simple-table" class="table  table-bordered table-hover">
       <thead>
       <tr><#list fieldList as field>
-        <th>${field.nameCn}</th></#list>
+          <#if field.nameHump!="createdAt" && field.nameHump!="updatedAt" && field.nameHump!="vod" && field.nameHump!="sort">
+            <th>${field.nameCn}</th>
+          </#if>
+        </#list>
         <th>操作</th>
       </tr>
       </thead>
@@ -28,11 +31,11 @@
       <tbody>
 
       <tr v-for="${domain} in ${domain}s">
-
         <#list fieldList as field>
+        <#if field.name!="id" && field.nameHump!="createdAt" && field.nameHump!="updatedAt"&& field.nameHump!="vod">
           <td>{{ ${domain}.${field.nameHump }}}</td>
+        </#if>
         </#list>
-
 
         <td>
           <div class="hidden-sm hidden-xs btn-group">
@@ -64,12 +67,14 @@
             <form class="form-horizontal">
 
               <#list fieldList as field>
-                <div class="form-group">
-                  <label  class="col-sm-2 control-label">${field.nameCn}</label>
-                  <div class="col-sm-10">
-                    <input v-model="${domain}.${field.nameHump}" type="text" class="form-control" >
+                <#if field.name!="id" && field.nameHump!="createdAt" && field.nameHump!="updatedAt"&& field.nameHump!="vod">
+                  <div class="form-group">
+                    <label  class="col-sm-2 control-label">${field.nameCn}</label>
+                    <div class="col-sm-10">
+                      <input v-model="${domain}.${field.nameHump}" type="text" class="form-control" >
+                    </div>
                   </div>
-                </div>
+                </#if>
               </#list>
             </form>
           </div>
@@ -180,7 +185,7 @@
             Toast.warning(resp.message);
           }
 
-        });
+        })
       },
 
       /**
