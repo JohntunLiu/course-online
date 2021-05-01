@@ -20,7 +20,7 @@
     <table id="simple-table" class="table  table-bordered table-hover">
       <thead>
       <tr><#list fieldList as field>
-          <#if field.nameHump!="createdAt" && field.nameHump!="updatedAt" && field.nameHump!="vod" && field.nameHump!="sort">
+          <#if field.nameHump!="createdAt" && field.nameHump!="updatedAt" && field.nameHump!="vod" >
             <th>${field.nameCn}</th>
           </#if>
         </#list>
@@ -32,7 +32,7 @@
 
       <tr v-for="${domain} in ${domain}s">
         <#list fieldList as field>
-        <#if field.name!="id" && field.nameHump!="createdAt" && field.nameHump!="updatedAt"&& field.nameHump!="vod">
+        <#if field.nameHump!="createdAt" && field.nameHump!="updatedAt"&& field.nameHump!="vod">
           <td>{{ ${domain}.${field.nameHump }}}</td>
         </#if>
         </#list>
