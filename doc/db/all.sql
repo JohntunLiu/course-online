@@ -12,8 +12,8 @@ create table course (
   status char(1) comment '状态|枚举[CourseStatusEnum]：PUBLISH("P", "发布"),DRAFT("D", "草稿")',
   enroll integer default 0 comment '报名数',
   sort int comment '顺序',
-  created_at datetime(3) comment '创建时间',
-  updated_at datetime(3) comment '修改时间',
+  created_at datetime comment '创建时间',
+  updated_at datetime comment '修改时间',
   primary key (id)
 ) engine=innodb default charset=utf8mb4 comment='课程';
 
