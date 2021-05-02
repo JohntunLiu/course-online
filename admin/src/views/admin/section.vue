@@ -34,7 +34,8 @@
 
             <th>收费</th>
 
-        <th>顺序</th>
+            <th>顺序</th>
+
 
 
         <th>操作</th>
@@ -144,7 +145,7 @@
 
   import Pagination from "../../components/pagination"
   export default {
-    name: 'section',
+    name: 'business-section',
     components: {Pagination},
     data: function () {
       return{
