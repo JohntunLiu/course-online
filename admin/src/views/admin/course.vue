@@ -39,6 +39,20 @@
             <h3 class="search-title">
               <a href="#" class="blue">{{ course.name }}</a>
             </h3>
+
+<!--            <div v-for="teacher in teachers.filter(t=>{return t.id===course.teacherId})" class="profile-activity clearfix">-->
+<!--              <div>-->
+<!--                <img v-show="!teacher.image" class="pull-left" src="/ace/assets/images/avatars/avatar5.png">-->
+<!--                <img v-show="teacher.image" class="pull-left" v-bind:src="teacher.image">-->
+<!--                <a class="user" href="#"> {{teacher.name}} </a>-->
+<!--                <br>-->
+<!--                {{teacher.position}}-->
+<!--              </div>-->
+<!--            </div>-->
+
+            <p>
+              <span class="blue bolder bigger-150">{{course.price}}&nbsp;<i class="fa fa-rmb"></i></span>&nbsp;
+            </p>
             <p>{{ course.summary}}</p>
 
             <p>
@@ -68,7 +82,7 @@
       </div>
     </div>
 
-    <table id="simple-table" class="table  table-bordered table-hover">
+<!--    <table id="simple-table" class="table  table-bordered table-hover">
       <thead>
       <tr>
             <th>id</th>
@@ -133,7 +147,7 @@
       </tr>
 
       </tbody>
-    </table>
+    </table>-->
     <!-- Modal -->
     <div  id="form-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
