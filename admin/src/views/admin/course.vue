@@ -1,7 +1,7 @@
 <template>
 
   <div>
-
+    <h3>{{course.name}}</h3>
     <p>
 
       <!-- Button trigger modal -->
@@ -264,7 +264,8 @@
       // sidebar激活样式方法一
       // this.$parent.activeSidebar("business-course-sidebar");
       let _this = this;
-      _this.$refs.pagination.size = 10;
+      _this.$refs.pagination.size = 5;
+
       _this.list(1);
 
     },
@@ -363,7 +364,131 @@
                 }
 
         );
-      }
+      },
+      /**
+       * 点击【大章】
+       */
+      toChapter(course) {
+        let _this = this;
+        SessionStorage.set(SESSION_KEY_COURSE, course);
+        _this.$router.push("/business/chapter");
+      },
+
+      /**
+       * 点击【内容】
+       */
+      toContent(course) {
+        let _this = this;
+        SessionStorage.set(SESSION_KEY_COURSE, course);
+        _this.$router.push("/business/content");
+      },
+
+      allCategory() {
+        let _this = this;
+        Loading.show();
+        _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/category/all').then((response)=>{
+          Loading.hide();
+          let resp = response.data;
+          _this.categorys = resp.content;
+
+          _this.initTree();
+        })
+      },
+
+      initTree() {
+        let _this = this;
+        let setting = {
+          check: {
+            enable: true
+          },
+          data: {
+            simpleData: {
+              idKey: "id",
+              pIdKey: "parent",
+              rootPId: "00000000",
+              enable: true
+            }
+          }
+        };
+
+        let zNodes = _this.categorys;
+
+        _this.tree = $.fn.zTree.init($("#tree"), setting, zNodes);
+
+        // 展开所有的节点
+        // _this.tree.expandAll(true);
+      },
+
+      /**
+       * 查找课程下所有分类
+       * @param courseId
+       */
+      listCategory(courseId) {
+        let _this = this;
+        Loading.show();
+        _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/course/list-category/' + courseId).then((res)=>{
+          Loading.hide();
+          console.log("查找课程下所有分类结果：", res);
+          let response = res.data;
+          let categorys = response.content;
+
+          // 勾选查询到的分类
+          _this.tree.checkAllNodes(false);
+          for (let i = 0; i < categorys.length; i++) {
+            let node = _this.tree.getNodeByParam("id", categorys[i].categoryId);
+            _this.tree.checkNode(node, true);
+          }
+        })
+      },
+
+      openSortModal(course) {
+        let _this = this;
+        _this.sort = {
+          id: course.id,
+          oldSort: course.sort,
+          newSort: course.sort
+        };
+        $("#course-sort-modal").modal("show");
+      },
+
+      /**
+       * 排序
+       */
+      updateSort() {
+        let _this = this;
+        if (_this.sort.newSort === _this.sort.oldSort) {
+          Toast.warning("排序没有变化");
+          return;
+        }
+        Loading.show();
+        _this.$ajax.post(process.env.VUE_APP_SERVER + "/business/admin/course/sort", _this.sort).then((res) => {
+          let response = res.data;
+
+          if (response.success) {
+            Toast.success("更新排序成功");
+            $("#course-sort-modal").modal("hide");
+            _this.list(1);
+          } else {
+            Toast.error("更新排序失败");
+          }
+        });
+      },
+
+      allTeacher() {
+        let _this = this;
+        Loading.show();
+        _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/teacher/all').then((response)=>{
+          Loading.hide();
+          let resp = response.data;
+          _this.teachers = resp.content;
+        })
+      },
+
+      afterUpload(resp) {
+        let _this = this;
+        let image = resp.content.path;
+        _this.course.image = image;
+      },
     }
 
   }

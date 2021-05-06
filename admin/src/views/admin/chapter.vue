@@ -3,6 +3,11 @@
   <div>
 
     <p>
+      <router-link to="/business/course" class="btn btn-white btn-default btn-round">
+        <i class="ace-icon fa fa-arrow-left"></i>
+        返回课程
+      </router-link>
+      &nbsp;
 
       <!-- Button trigger modal -->
       <button @click="add()" class="btn btn-white btn-default btn-round eye-protector-processed" style="transition: background-color 0.3s ease 0s; border-color: rgba(0, 0, 0, 0.35); color: rgb(0, 0, 0); background-color: rgb(193, 230, 198);">
@@ -73,9 +78,9 @@
               </div>
 
               <div class="form-group">
-                <label  class="col-sm-2 control-label">课程ID</label>
+                <label  class="col-sm-2 control-label">课程</label>
                 <div class="col-sm-10">
-                  <input v-model="chapter.courseId" type="text" class="form-control"  placeholder="课程ID">
+                  <p class="form-control-static" >{{course.name}}</p>
                 </div>
               </div>
 
@@ -101,6 +106,7 @@ export default {
   data: function () {
     return{
       chapter: {},
+      course: {},
       chapters: []
     }
   },
@@ -110,6 +116,11 @@ export default {
     // this.$parent.activeSidebar("business-chapter-sidebar");
     let _this = this;
     _this.$refs.pagination.size = 10;
+    let course = SessionStorage.get(SESSION_KEY_COURSE) || {};
+    if (Tool.isEmpty(course)) {
+      _this.$router.push("/welcome");
+    }
+    _this.course = course;
     _this.list(1);
 
   },
@@ -139,6 +150,7 @@ export default {
       _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/chapter/list', {
         page: page,
         size: _this.$refs.pagination.size,
+        courseId : _this.course.id
       }).then((response) => {
         Loading.hide();
 
@@ -157,10 +169,11 @@ export default {
       let _this = this;
 
       if (!Validator.require(_this.chapter.name, '名称')
-          || !Validator.require(_this.chapter.courseId, "课程ID")
           || !Validator.length(_this.chapter.courseId, "课程ID", 1,8)) {
         return;
       }
+
+      _this.chapter.courseId = _this.course.id;
 
       Loading.show();
 
