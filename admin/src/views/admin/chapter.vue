@@ -1,6 +1,7 @@
 <template>
 
   <div>
+    <h3>{{course.name}}</h3>
 
     <p>
       <router-link to="/business/course" class="btn btn-white btn-default btn-round">
