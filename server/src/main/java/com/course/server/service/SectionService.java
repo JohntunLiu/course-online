@@ -57,6 +57,7 @@ public class SectionService {
         } else {
         this.update(section);
         }
+        courseService.updateTime(sectionDto.getCourseId());
 
     }
     /**

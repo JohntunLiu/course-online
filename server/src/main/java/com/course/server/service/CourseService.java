@@ -5,10 +5,12 @@ import com.course.server.domain.CourseExample;
 import com.course.server.dto.CourseDto;
 import com.course.server.dto.PageDto;
 import com.course.server.mapper.CourseMapper;
+import com.course.server.mapper.my.MyCourseMapper;
 import com.course.server.util.CopyUtil;
 import com.course.server.util.UuidUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -18,10 +20,14 @@ import java.util.List;
 
 
 @Service
+@Slf4j
 public class CourseService {
 
     @Resource
     private CourseMapper courseMapper;
+
+    @Resource
+    private MyCourseMapper myCourseMapper;
 
     /**
     * 列表查询
@@ -74,5 +80,15 @@ public class CourseService {
     */
     public void delete(String id) {
     courseMapper.deleteByPrimaryKey(id);
+    }
+
+    /**
+     * 更新课程时长
+     * @param courseId
+     * @return
+     */
+    public void updateTime(String courseId) {
+        log.info("更新课程时长：{}", courseId);
+        myCourseMapper.updateTime(courseId);
     }
 }
