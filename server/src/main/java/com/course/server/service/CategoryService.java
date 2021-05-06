@@ -23,6 +23,19 @@ public class CategoryService {
     private CategoryMapper categoryMapper;
 
     /**
+     * 列表查询
+     */
+    public List<CategoryDto> all() {
+
+        CategoryExample categoryExample = new CategoryExample();
+        categoryExample.setOrderByClause("sort asc");
+        List<Category> categorys = categoryMapper.selectByExample(categoryExample);
+        List<CategoryDto> categoryDtoList = CopyUtil.copyList(categorys, CategoryDto.class);
+        return categoryDtoList;
+
+    }
+
+    /**
     * 列表查询
     */
     public void list(PageDto pageDto) {
