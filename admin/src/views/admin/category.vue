@@ -150,12 +150,33 @@ export default {
   },
 
   methods: {
-    add() {
+    /**
+     * 点击【新增一级】
+     */
+    add1() {
       let _this = this;
-      _this.category = {};
+      _this.active = {};
+      _this.level2 = [];
+      _this.category = {
+        parent: "00000000"
+      };
       $("#form-modal").modal("show");
     },
 
+    /**
+     * 点击【新增二级】
+     */
+    add2() {
+      let _this = this;
+      if (Tool.isEmpty(_this.active)) {
+        Toast.warning("请先点击一级分类");
+        return;
+      }
+      _this.category = {
+        parent: _this.active.id
+      };
+      $(".modal").modal("show");
+    },
     edit(category) {
       let _this = this;
       _this.category = $.extend({}, category);
