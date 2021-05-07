@@ -266,6 +266,15 @@
         COURSE_LEVEL: COURSE_LEVEL,
         COURSE_CHARGE: COURSE_CHARGE,
         COURSE_STATUS: COURSE_STATUS,
+        categorys: [],
+        tree: {},
+        saveContentLabel: "",
+        sort: {
+          id: "",
+          oldSort: 0,
+          newSort: 0
+        },
+        teachers: [],
       }
     },
 
@@ -274,7 +283,8 @@
       // this.$parent.activeSidebar("business-course-sidebar");
       let _this = this;
       _this.$refs.pagination.size = 5;
-      _this.initTree();
+      _this.allCategory();
+
       _this.list(1);
 
     },

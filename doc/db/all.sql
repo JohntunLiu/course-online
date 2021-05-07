@@ -174,8 +174,8 @@ create table `file` (
   `suffix` varchar(10) comment '后缀',
   `size` int comment '大小|字节B',
   `use` char(1) comment '用途|枚举[FileUseEnum]：COURSE("C", "讲师"), TEACHER("T", "课程")',
-  `created_at` datetime(3) comment '创建时间',
-  `updated_at` datetime(3) comment '修改时间',
+  `created_at` datetime comment '创建时间',
+  `updated_at` datetime comment '修改时间',
   primary key (`id`),
   unique key `path_unique` (`path`)
 ) engine=innodb default charset=utf8mb4 comment='文件';
@@ -269,7 +269,7 @@ create table `member` (
   `password` char(32) not null comment '密码',
   `name` varchar(50) comment '昵称',
   `photo` varchar(200) comment '头像url',
-  `register_time` datetime(3) comment '注册时间',
+  `register_time` datetime comment '注册时间',
   primary key (`id`),
   unique key `mobile_unique` (`mobile`)
 ) engine=innodb default charset=utf8mb4 comment='会员';
@@ -284,7 +284,7 @@ create table `sms` (
   `mobile` varchar(50) not null comment '手机号',
   `code` char(6) not null comment '验证码',
   `use` char(1) not null comment '用途|枚举[SmsUseEnum]：REGISTER("R", "注册"), FORGET("F", "忘记密码")',
-  `at` datetime(3) not null comment '生成时间',
+  `at` datetime not null comment '生成时间',
   `status` char(1) not null comment '用途|枚举[SmsStatusEnum]：USED("U", "已使用"), NOT_USED("N", "未使用")',
   primary key (`id`)
 ) engine=innodb default charset=utf8mb4 comment='短信验证码';
@@ -297,7 +297,7 @@ create table `member_course` (
   `id` char(8) not null default '' comment 'id',
   `member_id` char(8) not null comment '会员id',
   `course_id` char(8) not null comment '课程id',
-  `at` datetime(3) not null comment '报名时间',
+  `at` datetime not null comment '报名时间',
   primary key (`id`),
   unique key `member_course_unique` (`member_id`, `course_id`)
 ) engine=innodb default charset=utf8mb4 comment='会员课程报名';
