@@ -159,7 +159,16 @@
           <div class="modal-body">
             <form class="form-horizontal">
 
-                   <div class="form-group">
+              <div class="form-group">
+                <label class="col-sm-2 control-label">
+                  分类
+                </label>
+                <div class="col-sm-10">
+                  <ul id="tree" class="ztree"></ul>
+                </div>
+              </div>
+
+              <div class="form-group">
                      <label class="col-sm-2 control-label">名称</label>
                      <div class="col-sm-10">
                        <input v-model="course.name" class="form-control">
@@ -265,7 +274,7 @@
       // this.$parent.activeSidebar("business-course-sidebar");
       let _this = this;
       _this.$refs.pagination.size = 5;
-
+      _this.initTree();
       _this.list(1);
 
     },
