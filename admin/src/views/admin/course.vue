@@ -1,7 +1,6 @@
 <template>
 
   <div>
-    <h3>{{course.name}}</h3>
     <p>
 
       <!-- Button trigger modal -->
@@ -340,6 +339,13 @@
         ) {
           return;
         }
+
+        let categorys = _this.tree.getCheckedNodes();
+        if (Tool.isEmpty(categorys)) {
+          Toast.warning("请选择分类！");
+          return;
+        }
+        _this.course.categorys = categorys;
 
         Loading.show();
 

@@ -29,6 +29,9 @@ public class CourseService {
     @Resource
     private MyCourseMapper myCourseMapper;
 
+    @Resource
+    private CourseCategoryService courseCategoryService;
+
     /**
     * 列表查询
     */
@@ -46,6 +49,10 @@ public class CourseService {
 
     }
 
+    /**
+     * 保存
+     * @param courseDto
+     */
     public void save(CourseDto courseDto) {
 
         Course course = CopyUtil.copy(courseDto, Course.class);
@@ -54,6 +61,8 @@ public class CourseService {
         } else {
         this.update(course);
         }
+        // 批量保存课程分类
+        courseCategoryService.saveBatch(course.getId(), courseDto.getCategorys());
 
     }
     /**
