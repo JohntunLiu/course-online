@@ -289,15 +289,26 @@
     },
 
     methods: {
+
+      /**
+       * 点击【添加】
+       *
+       */
       add() {
         let _this = this;
         _this.course = {};
+        _this.tree.checkAllNodes(false);
         $("#form-modal").modal("show");
       },
 
+      /**
+       * 点击【编辑】
+       *
+       */
       edit(course) {
         let _this = this;
         _this.course = $.extend({},course);
+        _this.listCategory(course.id);
         $("#form-modal").modal("show");
       },
 
@@ -305,7 +316,6 @@
        * 点击【查询】
        * @param page
        */
-
       list(page) {
         let _this = this;
         Loading.show();
