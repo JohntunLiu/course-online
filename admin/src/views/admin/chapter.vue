@@ -115,7 +115,7 @@ export default {
 
   mounted: function () {
     // sidebar激活样式方法一
-    // this.$parent.activeSidebar("business-chapter-sidebar");
+    this.$parent.activeSidebar("business-course-sidebar");
     let _this = this;
     _this.$refs.pagination.size = 10;
     let course = SessionStorage.get(SESSION_KEY_COURSE) || {};
