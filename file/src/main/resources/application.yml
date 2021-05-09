@@ -1,6 +1,9 @@
 spring:
   application:
     name: file
+  servlet:
+    multipart:
+      max-file-size: 15MB
 
 server:
   port: 9003

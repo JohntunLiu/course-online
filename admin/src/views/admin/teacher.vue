@@ -5,24 +5,28 @@
     <p>
 
       <!-- Button trigger modal -->
-      <button @click="add()" class="btn btn-white btn-default btn-round eye-protector-processed" style="transition: background-color 0.3s ease 0s; border-color: rgba(0, 0, 0, 0.35); color: rgb(0, 0, 0); background-color: rgb(193, 230, 198);">
-        <i class="ace-icon fa fa-edit " ></i>
+      <button @click="add()" class="btn btn-white btn-default btn-round eye-protector-processed"
+              style="transition: background-color 0.3s ease 0s; border-color: rgba(0, 0, 0, 0.35); color: rgb(0, 0, 0); background-color: rgb(193, 230, 198);">
+        <i class="ace-icon fa fa-edit "></i>
         新增
       </button>
       &nbsp;
-      <button @click="list(1)" class="btn btn-white btn-default btn-round eye-protector-processed" style="transition: background-color 0.3s ease 0s; border-color: rgba(0, 0, 0, 0.35); color: rgb(0, 0, 0); background-color: rgb(193, 230, 198);">
-        <i class="ace-icon fa fa-refresh " ></i>
+      <button @click="list(1)" class="btn btn-white btn-default btn-round eye-protector-processed"
+              style="transition: background-color 0.3s ease 0s; border-color: rgba(0, 0, 0, 0.35); color: rgb(0, 0, 0); background-color: rgb(193, 230, 198);">
+        <i class="ace-icon fa fa-refresh "></i>
         刷新
       </button>
     </p>
 
-    <Pagination ref="pagination" v-bind:list="list" v-bind:itemCount="8" ></Pagination>
+    <Pagination ref="pagination" v-bind:list="list" v-bind:itemCount="8"></Pagination>
     <div class="row">
       <div v-for="teacher in teachers" class="col-md-3">
         <div>
           <span class="profile-picture">
-            <img v-show="!teacher.image" class="editable img-responsive editable-click editable-empty" src="/static/image/讲师头像/头像1.jpg" v-bind:title="teacher.intro"/>
-            <img v-show="teacher.image" class="editable img-responsive editable-click editable-empty" v-bind:src="teacher.image" v-bind:title="teacher.intro"/>
+            <img v-show="!teacher.image" class="editable img-responsive editable-click editable-empty"
+                 src="/static/image/讲师头像/头像1.jpg" v-bind:title="teacher.intro"/>
+            <img v-show="teacher.image" class="editable img-responsive editable-click editable-empty"
+                 v-bind:src="teacher.image" v-bind:title="teacher.intro"/>
           </span>
 
           <div class="space-4"></div>
@@ -32,7 +36,7 @@
               <a href="javascript:;" class="user-title-label dropdown-toggle" data-toggle="dropdown">
                 <i class="ace-icon fa fa-circle light-green"></i>
                 &nbsp;
-                <span class="white">{{teacher.position}}</span>
+                <span class="white">{{ teacher.position }}</span>
               </a>
             </div>
           </div>
@@ -43,7 +47,7 @@
         <div class="text-center">
           <a href="javascript:;" class="text-info bigger-110" v-bind:title="teacher.motto">
             <i class="ace-icon fa fa-user"></i>
-            {{teacher.name}}【{{teacher.nickname}}】
+            {{ teacher.name }}【{{ teacher.nickname }}】
           </a>
         </div>
 
@@ -64,57 +68,62 @@
       </div>
     </div>
     <!-- Modal -->
-    <div  id="form-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div id="form-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" >表单</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">表单</h4>
           </div>
           <div class="modal-body">
             <form class="form-horizontal">
 
-                   <div class="form-group">
-                     <label class="col-sm-2 control-label">姓名</label>
-                     <div class="col-sm-10">
-                       <input v-model="teacher.name" class="form-control">
-                     </div>
-                   </div>
-                   <div class="form-group">
-                     <label class="col-sm-2 control-label">昵称</label>
-                     <div class="col-sm-10">
-                       <input v-model="teacher.nickname" class="form-control">
-                     </div>
-                   </div>
-                   <div class="form-group">
-                     <label class="col-sm-2 control-label">头像</label>
-                     <div class="col-sm-10">
-                       <input type="file" @change="uploadImage()" id="file-upload-input">
-                       <div v-show="teacher.image" class="row">
-                         <div class="col-md-4">
-                           <img v-bind:src="teacher.image" class="img-responsive">
-                         </div>
-                       </div>
-                     </div>
-                   </div>
-                   <div class="form-group">
-                     <label class="col-sm-2 control-label">职位</label>
-                     <div class="col-sm-10">
-                       <input v-model="teacher.position" class="form-control">
-                     </div>
-                   </div>
-                   <div class="form-group">
-                     <label class="col-sm-2 control-label">座右铭</label>
-                     <div class="col-sm-10">
-                       <input v-model="teacher.motto" class="form-control">
-                     </div>
-                   </div>
-                   <div class="form-group">
-                     <label class="col-sm-2 control-label">简介</label>
-                     <div class="col-sm-10">
-                       <input v-model="teacher.intro" class="form-control">
-                     </div>
-                   </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">姓名</label>
+                <div class="col-sm-10">
+                  <input v-model="teacher.name" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">昵称</label>
+                <div class="col-sm-10">
+                  <input v-model="teacher.nickname" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">头像</label>
+                <div class="col-sm-10">
+                  <button type="button" @click="selectImage()" class="btn btn-white btn-default btn-round ">
+                    <i class="ace-icon fa fa-upload "></i>
+                    上传头像
+                  </button>
+                  <input class="hidden" type="file" @change="uploadImage()" id="file-upload-input">
+                  <div v-show="teacher.image" class="row">
+                    <div class="col-md-4">
+                      <img v-bind:src="teacher.image" class="img-responsive">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">职位</label>
+                <div class="col-sm-10">
+                  <input v-model="teacher.position" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">座右铭</label>
+                <div class="col-sm-10">
+                  <input v-model="teacher.motto" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">简介</label>
+                <div class="col-sm-10">
+                  <input v-model="teacher.intro" class="form-control">
+                </div>
+              </div>
             </form>
           </div>
           <div class="modal-footer">
@@ -130,144 +139,147 @@
 
 <script>
 
-  import Pagination from "../../components/pagination"
-  export default {
-    name: 'business-teacher',
-    components: {Pagination},
-    data: function () {
-      return{
-        teacher: {},
-        teachers: [],
-      }
-    },
+import Pagination from "../../components/pagination"
 
-    mounted: function () {
-      // sidebar激活样式方法一
-      // this.$parent.activeSidebar("business-teacher-sidebar");
+export default {
+  name: 'business-teacher',
+  components: {Pagination},
+  data: function () {
+    return {
+      teacher: {},
+      teachers: [],
+    }
+  },
+
+  mounted: function () {
+    // sidebar激活样式方法一
+    // this.$parent.activeSidebar("business-teacher-sidebar");
+    let _this = this;
+    _this.$refs.pagination.size = 10;
+    _this.list(1);
+
+  },
+
+  methods: {
+    add() {
       let _this = this;
-      _this.$refs.pagination.size = 10;
-      _this.list(1);
-
+      _this.teacher = {};
+      $("#form-modal").modal("show");
     },
 
-    methods: {
-      add() {
-        let _this = this;
-        _this.teacher = {};
-        $("#form-modal").modal("show");
-      },
+    edit(teacher) {
+      let _this = this;
+      _this.teacher = $.extend({}, teacher);
+      $("#form-modal").modal("show");
+    },
 
-      edit(teacher) {
-        let _this = this;
-        _this.teacher = $.extend({},teacher);
-        $("#form-modal").modal("show");
-      },
+    /**
+     * 点击【查询】
+     * @param page
+     */
 
-      /**
-       * 点击【查询】
-       * @param page
-       */
+    list(page) {
+      let _this = this;
+      Loading.show();
 
-      list(page) {
-        let _this = this;
-        Loading.show();
+      _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/teacher/list', {
+        page: page,
+        size: _this.$refs.pagination.size,
+      }).then((response) => {
+        Loading.hide();
 
-        _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/teacher/list', {
-          page: page,
-          size: _this.$refs.pagination.size,
-        }).then((response) => {
-          Loading.hide();
+        let resp = response.data;
+        _this.teachers = resp.content.list;
+        _this.$refs.pagination.render(page, resp.content.total);
+      });
+    },
 
-          let resp = response.data;
-          _this.teachers = resp.content.list;
-          _this.$refs.pagination.render(page, resp.content.total);
-        });
-      },
+    /**
+     * 点击【保存】
+     * id有值时更新，无值时插入
+     *
+     */
+    save() {
+      let _this = this;
 
-      /**
-       * 点击【保存】
-       * id有值时更新，无值时插入
-       *
-       */
-      save() {
-        let _this = this;
+      // 保存校验
+      if (1 != 1
+          || !Validator.require(_this.teacher.name, "姓名")
+          || !Validator.length(_this.teacher.name, "姓名", 1, 50)
+          || !Validator.length(_this.teacher.nickname, "昵称", 1, 50)
+          || !Validator.length(_this.teacher.image, "头像", 1, 100)
+          || !Validator.length(_this.teacher.position, "职位", 1, 50)
+          || !Validator.length(_this.teacher.motto, "座右铭", 1, 50)
+          || !Validator.length(_this.teacher.intro, "简介", 1, 500)
+      ) {
+        return;
+      }
 
-        // 保存校验
-        if (1 != 1
-                || !Validator.require(_this.teacher.name, "姓名")
-                || !Validator.length(_this.teacher.name, "姓名", 1, 50)
-                || !Validator.length(_this.teacher.nickname, "昵称", 1, 50)
-                || !Validator.length(_this.teacher.image, "头像", 1, 100)
-                || !Validator.length(_this.teacher.position, "职位", 1, 50)
-                || !Validator.length(_this.teacher.motto, "座右铭", 1, 50)
-                || !Validator.length(_this.teacher.intro, "简介", 1, 500)
-        ) {
-          return;
+      Loading.show();
+
+      _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/teacher/save',
+          _this.teacher
+      ).then((response) => {
+        Loading.hide();
+
+        let resp = response.data;
+        if (resp.success) {
+          $("#form-modal").modal("hide");
+          _this.list(1);
+          Toast.success("保存成功");
+        } else {
+          Toast.warning(resp.message);
         }
 
-        Loading.show();
+      })
+    },
 
-        _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/teacher/save',
+    /**
+     * 点击【删除】
+     *
+     */
+    del(id) {
+      let _this = this;
+
+      Confirm.show("删除讲师后不可恢复，确认删除？", function () {
+
+            Loading.show();
+            _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/teacher/delete/' + id,
                 _this.teacher
-        ).then((response) => {
-          Loading.hide();
-
-          let resp = response.data;
-          if (resp.success) {
-            $("#form-modal").modal("hide");
-            _this.list(1);
-            Toast.success("保存成功");
-          } else {
-            Toast.warning(resp.message);
+            ).then((response) => {
+              Loading.hide();
+              let resp = response.data;
+              if (resp.success) {
+                _this.list(1);
+                Toast.success("删除成功！");
+              }
+            })
           }
+      );
+    },
 
-        })
-      },
+    uploadImage() {
+      let _this = this;
+      let formData = new window.FormData();
 
-      /**
-       * 点击【删除】
-       *
-       */
-      del(id) {
-        let _this = this;
+      formData.append('file', document.querySelector('#file-upload-input').files[0]);
+      Loading.show();
+      _this.$ajax.post(process.env.VUE_APP_SERVER + '/file/admin/upload',
+          formData
+      ).then((response) => {
+        Loading.hide();
+        let resp = response.data;
+        let image = resp.content;
+        console.log("头像地址: ", image);
+        _this.teacher.image = image;
 
-        Confirm.show("删除讲师后不可恢复，确认删除？", function () {
-
-                  Loading.show();
-                  _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/teacher/delete/'+id,
-                          _this.teacher
-                  ).then((response) => {
-                    Loading.hide();
-                    let resp = response.data;
-                    if (resp.success) {
-                      _this.list(1);
-                      Toast.success("删除成功！");
-                    }
-                  })
-                }
-
-        );
-      },
-
-      uploadImage(){
-        let _this = this;
-        let formData = new window.FormData();
-
-        formData.append('file', document.querySelector('#file-upload-input').files[0]);
-        Loading.show();
-        _this.$ajax.post(process.env.VUE_APP_SERVER + '/file/admin/upload',
-            formData
-        ).then((response) => {
-          Loading.hide();
-          let resp = response.data;
-          let image = resp.content;
-          console.log("头像地址: ", image);
-          _this.teacher.image=image;
-
-        });
-      }
-
+      });
+    },
+    selectImage(){
+      $("#file-upload-input").trigger("click");
     }
 
   }
+
+}
 </script>
