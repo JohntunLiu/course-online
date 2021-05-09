@@ -5,10 +5,13 @@ spring:
 server:
   port: 9003
   servlet:
-    context-path: /business
+    context-path: /file
 
 eureka:
   client:
     service-url:http://127.0.0.1:8761/eureka/
 
+file:
+  path: D:/project/courseFile/
+  domain: http://127.0.0.1:9000/file/f/
 

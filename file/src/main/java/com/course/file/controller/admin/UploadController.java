@@ -1,54 +1,58 @@
-//package com.course.file.controller.admin;
-//
-//import com.alibaba.fastjson.JSON;
-//import com.aliyuncs.DefaultAcsClient;
-//import com.aliyuncs.vod.model.v20170321.GetMezzanineInfoResponse;
-//import com.course.server.dto.FileDto;
-//import com.course.server.dto.ResponseDto;
-//import com.course.server.enums.FileUseEnum;
-//import com.course.server.service.FileService;
-//import com.course.server.util.Base64ToMultipartFile;
-//import com.course.server.util.VodUtil;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-//import org.springframework.beans.factory.annotation.Value;
-//import org.springframework.util.StringUtils;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RestController;
-//import org.springframework.web.multipart.MultipartFile;
-//
-//import javax.annotation.Resource;
-//import java.io.File;
-//import java.io.FileInputStream;
-//import java.io.FileOutputStream;
-//import java.io.IOException;
-//
-//@RequestMapping("/admin")
-//@RestController
-//public class UploadController {
-//
-//    private static final Logger LOG = LoggerFactory.getLogger(UploadController.class);
-//
-//    public static final String BUSINESS_NAME = "文件上传";
-//
-//    @Value("${file.domain}")
-//    private String FILE_DOMAIN;
-//
-//    @Value("${file.path}")
-//    private String FILE_PATH;
-//
+package com.course.file.controller.admin;
+
+import com.course.server.dto.ResponseDto;
+import com.course.server.util.UuidUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+
+@RequestMapping("/admin")
+@RestController
+public class UploadController {
+
+    private static final Logger LOG = LoggerFactory.getLogger(UploadController.class);
+
+    public static final String BUSINESS_NAME = "文件上传";
+
+    @Value("${file.domain}")
+    private String FILE_DOMAIN;
+
+    @Value("${file.path}")
+    private String FILE_PATH;
+
 //    @Value("${vod.accessKeyId}")
 //    private String accessKeyId;
 //
 //    @Value("${vod.accessKeySecret}")
 //    private String accessKeySecret;
-//
+
 //    @Resource
 //    private FileService fileService;
-//
-//    @RequestMapping("/upload")
-//    public ResponseDto upload(@RequestBody FileDto fileDto) throws Exception {
-//        LOG.info("上传文件开始");
+
+    @RequestMapping("/upload")
+    public ResponseDto upload(@RequestParam MultipartFile file) throws Exception {
+        LOG.info("上传文件开始:{}", file);
+        LOG.info(file.getOriginalFilename());
+        LOG.info(String.valueOf(file.getSize()));
+
+        String fileName = file.getOriginalFilename();
+        String key = UuidUtil.getShortUuid();
+        String fullPath = FILE_PATH + "teacher/" + key + "-" + fileName;
+        File dest = new File(fullPath);
+        file.transferTo(dest);
+
+        LOG.info(dest.getAbsolutePath());
+
+        ResponseDto responseDto = new ResponseDto();
+        return responseDto;
+
+
 //        String use = fileDto.getUse();
 //        String key = fileDto.getKey();
 //        String suffix = fileDto.getSuffix();
@@ -93,8 +97,8 @@
 //            this.merge(fileDto);
 //        }
 //        return responseDto;
-//    }
-//
+    }
+
 //    public void merge(FileDto fileDto) throws Exception {
 //        LOG.info("合并分片开始");
 //        String path = fileDto.getPath(); //http://127.0.0.1:9000/file/f/course\6sfSqfOwzmik4A4icMYuUe.mp4
@@ -162,4 +166,4 @@
 //        responseDto.setContent(fileDto);
 //        return responseDto;
 //    }
-//}
+}
