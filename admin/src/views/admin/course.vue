@@ -101,88 +101,90 @@
                   <ul id="tree" class="ztree"></ul>
                 </div>
               </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">封面</label>
+                <div class="col-sm-10">
+                  <input v-model="course.image" class="form-control">
+                </div>
+              </div>
 
               <div class="form-group">
-                     <label class="col-sm-2 control-label">名称</label>
-                     <div class="col-sm-10">
-                       <input v-model="course.name" class="form-control">
-                     </div>
-                   </div>
-                   <div class="form-group">
-                     <label class="col-sm-2 control-label">概述</label>
-                     <div class="col-sm-10">
-                       <input v-model="course.summary" class="form-control">
-                     </div>
-                   </div>
-                   <div class="form-group">
-                     <label class="col-sm-2 control-label">时长</label>
-                     <div class="col-sm-10">
-                       <input v-model="course.time" class="form-control">
-                     </div>
-                   </div>
-                   <div class="form-group">
-                     <label class="col-sm-2 control-label">价格（元）</label>
-                     <div class="col-sm-10">
-                       <input v-model="course.price" class="form-control">
-                     </div>
-                   </div>
-                   <div class="form-group">
-                     <label class="col-sm-2 control-label">封面</label>
-                     <div class="col-sm-10">
-                       <input v-model="course.image" class="form-control">
-                     </div>
-                   </div>
-                   <div class="form-group">
-                     <label class="col-sm-2 control-label">级别</label>
-                     <div class="col-sm-10">
-                       <select v-model="course.level" class="form-control">
-                         <option v-for="o in COURSE_LEVEL" v-bind:value="o.key">{{o.value}}</option>
-                       </select>
-                     </div>
-                   </div>
-                   <div class="form-group">
-                     <label class="col-sm-2 control-label">收费</label>
-                     <div class="col-sm-10">
-                       <select v-model="course.charge" class="form-control">
-                         <option v-for="o in COURSE_CHARGE" v-bind:value="o.key">{{o.value}}</option>
-                       </select>
-                     </div>
-                   </div>
-                   <div class="form-group">
-                     <label class="col-sm-2 control-label">状态</label>
-                     <div class="col-sm-10">
-                       <select v-model="course.status" class="form-control">
-                         <option v-for="o in COURSE_STATUS" v-bind:value="o.key">{{o.value}}</option>
-                       </select>
-                     </div>
-                   </div>
-                   <div class="form-group">
-                     <label class="col-sm-2 control-label">报名数</label>
-                     <div class="col-sm-10">
-                       <input v-model="course.enroll" class="form-control">
-                     </div>
-                   </div>
-                   <div class="form-group">
-                     <label class="col-sm-2 control-label">顺序</label>
-                     <div class="col-sm-10">
-                       <input v-model="course.sort" class="form-control" disabled>
-                     </div>
-                   </div>
-                   <div class="form-group">
-                     <label class="col-sm-2 control-label">讲师</label>
-                     <div class="col-sm-10">
-                       <input v-model="course.teacherId" class="form-control">
-                     </div>
-                   </div>
+                <label class="col-sm-2 control-label">名称</label>
+                <div class="col-sm-10">
+                  <input v-model="course.name" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">讲师</label>
+                <div class="col-sm-10">
+                  <select v-model="course.teacherId" class="form-control">
+                    <option v-for="o in teachers" v-bind:value="o.id">{{o.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">概述</label>
+                <div class="col-sm-10">
+                  <textarea v-model="course.summary" class="form-control"></textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">时长</label>
+                <div class="col-sm-10">
+                  <input v-model="course.time" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">价格（元）</label>
+                <div class="col-sm-10">
+                  <input v-model="course.price" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">级别</label>
+                <div class="col-sm-10">
+                  <select v-model="course.level" class="form-control">
+                    <option v-for="o in COURSE_LEVEL" v-bind:value="o.key">{{o.value}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">收费</label>
+                <div class="col-sm-10">
+                  <select v-model="course.charge" class="form-control">
+                    <option v-for="o in COURSE_CHARGE" v-bind:value="o.key">{{o.value}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">状态</label>
+                <div class="col-sm-10">
+                  <select v-model="course.status" class="form-control">
+                    <option v-for="o in COURSE_STATUS" v-bind:value="o.key">{{o.value}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">报名数</label>
+                <div class="col-sm-10">
+                  <input v-model="course.enroll" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">顺序</label>
+                <div class="col-sm-10">
+                  <input v-model="course.sort" class="form-control" disabled>
+                </div>
+              </div>
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            <button @click="save" type="button" class="btn btn-primary">保存</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            <button v-on:click="save()" type="button" class="btn btn-primary">保存</button>
           </div>
-        </div>
-      </div>
-    </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
     <div id="course-sort-modal" class="modal fade" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
@@ -259,6 +261,7 @@
       let _this = this;
       _this.$refs.pagination.size = 5;
       _this.allCategory();
+      _this.allTeacher();
 
       _this.list(1);
 
