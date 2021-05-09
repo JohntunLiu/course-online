@@ -17,6 +17,12 @@ spring:
           predicates:
             - Path=/business/**
 
+        - id: business
+#          uri: http://127.0.0.1:9003
+          uri: lb://file
+          predicates:
+            - Path=/file/**
+
 
 server:
   port: 9000
