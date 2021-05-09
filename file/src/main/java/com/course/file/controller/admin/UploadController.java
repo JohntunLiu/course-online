@@ -50,6 +50,7 @@ public class UploadController {
         LOG.info(dest.getAbsolutePath());
 
         ResponseDto responseDto = new ResponseDto();
+        responseDto.setContent(FILE_DOMAIN + "teacher/" + key + "-" + fileName);
         return responseDto;
 
 

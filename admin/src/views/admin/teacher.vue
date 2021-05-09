@@ -90,6 +90,7 @@
                      <label class="col-sm-2 control-label">头像</label>
                      <div class="col-sm-10">
                        <input type="file" @change="uploadImage()" id="file-upload-input">
+                       <img v-bind:src="teacher.image" class="img-responsive">
                      </div>
                    </div>
                    <div class="form-group">
@@ -255,6 +256,9 @@
         ).then((response) => {
           Loading.hide();
           let resp = response.data;
+          let image = resp.content;
+          console.log("头像地址: ", image);
+          _this.teacher.image=image;
 
         });
       }
