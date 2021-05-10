@@ -80,11 +80,11 @@ export default {
 
       // 文件分片
       let shardSize = 20 * 1024 * 1024;    //以10MB为一个分片
-      let shardIndex = 0;		//分片索引，1表示第1个分片
+      let shardIndex = 2;		//分片索引，1表示第1个分片
       // let shardSize = 50 * 1024;    //以50KB为一个分片
-      let start = shardSize * shardIndex;
+      let start = shardSize * (shardIndex - 1);
       let end = Math.min(file.size, start + shardSize);
-      let  fileShard = file.slice(start,end);
+      let fileShard = file.slice(start, end);
       let size = file.size;
       let shardTotal = Math.ceil(size / shardSize); //总片数
 
