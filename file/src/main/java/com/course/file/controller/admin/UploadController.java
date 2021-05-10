@@ -66,10 +66,12 @@ public class UploadController {
                 .append(key)
                 .append(".")
                 .append(suffix)
+                .toString(); // course\6sfSqfOwzmik4A4icMYuUe.mp4
+         String localPath = new StringBuffer(path)
                 .append(".")
                 .append(fileDto.getShardIndex())
-                .toString(); // course\6sfSqfOwzmik4A4icMYuUe.mp4
-        String fullPath = FILE_PATH + path;
+                .toString(); // course\6sfSqfOwzmik4A4icMYuUe.mp4.1
+        String fullPath = FILE_PATH + localPath;
         File dest = new File(fullPath);
         shard.transferTo(dest);
         LOG.info(dest.getAbsolutePath());
@@ -80,6 +82,11 @@ public class UploadController {
         ResponseDto responseDto = new ResponseDto();
         fileDto.setPath(FILE_DOMAIN + path);
         responseDto.setContent(fileDto);
+
+        if (fileDto.getShardIndex() == fileDto.getShardTotal()) {
+
+            this.merge(fileDto);
+        }
         return responseDto;
     }
 
@@ -166,9 +173,9 @@ public class UploadController {
         LOG.info("合并分片结束");
 
         System.gc();
-        Thread.sleep(100);
+        Thread.sleep(1000);
 
-        // 删除分片
+//         删除分片
         LOG.info("删除分片开始");
         for (int i = 0; i < shardTotal; i++) {
             String filePath = FILE_PATH + path + "." + (i + 1);
