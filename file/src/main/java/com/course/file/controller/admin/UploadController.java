@@ -60,7 +60,15 @@ public class UploadController {
             fullDir.mkdirs();
         }
 
-        String path = dir + File.separator + key + "." + suffix;
+        //        String path = dir + File.separator + key + "." + suffix + "." + fileDto.getShardIndex();
+        String path = new StringBuffer(dir)
+                .append(File.separator)
+                .append(key)
+                .append(".")
+                .append(suffix)
+                .append(".")
+                .append(fileDto.getShardIndex())
+                .toString(); // course\6sfSqfOwzmik4A4icMYuUe.mp4
         String fullPath = FILE_PATH + path;
         File dest = new File(fullPath);
         shard.transferTo(dest);
