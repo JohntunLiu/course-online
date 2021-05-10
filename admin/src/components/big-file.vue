@@ -33,6 +33,7 @@ export default {
     return {}
   },
   methods: {
+
     uploadFile() {
       let _this = this;
       let formData = new window.FormData();
@@ -82,9 +83,6 @@ export default {
       let shardSize = 20 * 1024 * 1024;    //以10MB为一个分片
       let shardIndex = 1;		//分片索引，1表示第1个分片
       // let shardSize = 50 * 1024;    //以50KB为一个分片
-      let start = shardSize * (shardIndex - 1);
-      let end = Math.min(file.size, start + shardSize);
-      let fileShard = file.slice(start, end);
       let size = file.size;
       let shardTotal = Math.ceil(size / shardSize); //总片数
 
@@ -108,39 +106,63 @@ export default {
       // });
 
 
+      let param = {
+        'shardIndex': shardIndex,
+        'shardSize': shardSize,
+        'shardTotal': shardTotal,
+        'use': _this.use,
+        'name': file.name,
+        'suffix': suffix,
+        'size': file.size,
+        'key': key62
+      };
 
 
+      _this.upload(param);
+
+
+    },
+
+    upload: function (param) {
+      let _this = this;
+      let shardIndex = param.shardIndex;
+      let shardTotal = param.shardTotal;
+      let shardSize = param.shardSize;
+      let fileShard = _this.getFileShard(shardIndex, shardSize);
 
       //base64传输
       let fileReader = new FileReader();
       fileReader.onload = function (e) {
         let base64 = e.target.result;
         // console.log("base64", base64);
-        let param = {
-          'shard': base64,
-          'shardIndex': shardIndex,
-          'shardSize': shardSize,
-          'shardTotal': shardTotal,
-          'use': _this.use,
-          'name': file.name,
-          'suffix': suffix,
-          'size': file.size,
-          'key': key62
-        };
+        param.shard = base64;
         _this.$ajax.post(process.env.VUE_APP_SERVER + '/file/admin/upload', param).then((response) => {
           Loading.hide();
           let resp = response.data;
           console.log("上传文件成功：", resp);
-          _this.afterUpload(resp);
+
+          if (shardIndex < shardTotal) {
+            param.shardIndex += 1;
+            _this.upload(param);
+          } else {
+            _this.afterUpload(resp);
+          }
           $("#" + _this.inputId + "-input").val("");
         });
       };
 
       fileReader.readAsDataURL(fileShard);
-
-
-
     },
+
+    getFileShard (shardIndex, shardSize) {
+      let _this = this;
+      let file = _this.$refs.file.files[0];
+      let start = (shardIndex - 1) * shardSize;	//当前分片起始位置
+      let end = Math.min(file.size, start + shardSize); //当前分片结束位置
+      let fileShard = file.slice(start, end); //从文件中截取当前的分片数据
+      return fileShard;
+    },
+
 
 
     selectFile() {
