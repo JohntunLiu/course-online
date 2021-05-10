@@ -161,20 +161,26 @@ export default {
 
       //base64传输
       let fileReader = new FileReader();
+
+      Progress.show(parseInt((shardIndex - 1) * 100 / shardTotal));
+
       fileReader.onload = function (e) {
         let base64 = e.target.result;
         // console.log("base64", base64);
         param.shard = base64;
         _this.$ajax.post(process.env.VUE_APP_SERVER + '/file/admin/upload', param).then((response) => {
-          Loading.hide();
+          // Loading.hide();
           let resp = response.data;
           console.log("上传文件成功：", resp);
+          Progress.show(parseInt(shardIndex * 100 / shardTotal));
+
 
           if (shardIndex < shardTotal) {
             param.shardIndex += 1;
 
             _this.upload(param);
           } else {
+            Progress.hide();
             _this.afterUpload(resp);
             $("#" + _this.inputId + "-input").val("");
           }
