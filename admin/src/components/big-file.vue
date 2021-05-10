@@ -56,8 +56,8 @@ export default {
       }
 
       // 文件分片
-      let shardSize = 10 * 1024 * 1024;    //以10MB为一个分片
-      let shardIndex = 1;		//分片索引，1表示第1个分片
+      let shardSize = 20 * 1024 * 1024;    //以10MB为一个分片
+      let shardIndex = 0;		//分片索引，1表示第1个分片
       // let shardSize = 50 * 1024;    //以50KB为一个分片
       let start = shardSize * shardIndex;
       let end = Math.min(file.size, start + shardSize);
@@ -66,8 +66,14 @@ export default {
       let shardTotal = Math.ceil(size / shardSize); //总片数
 
       // key："file"必须和后端controller参数名一致
-      formData.append('file', fileShard);
+      formData.append('shard', fileShard);
+      formData.append('shardIndex', shardIndex);
+      formData.append('shardSize', shardSize);
+      formData.append('shardTotal', shardTotal);
       formData.append('use', _this.use);
+      formData.append('name', file.name);
+      formData.append('suffix', suffix);
+      formData.append('size', size);
       Loading.show();
       _this.$ajax.post(process.env.VUE_APP_SERVER + '/file/admin/upload', formData).then((response) => {
         Loading.hide();
