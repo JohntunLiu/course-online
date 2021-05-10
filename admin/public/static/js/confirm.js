@@ -13,7 +13,6 @@ Confirm = {
       if (result.value) {
         if (callback) {
           callback();
-
         }
       }
     })
