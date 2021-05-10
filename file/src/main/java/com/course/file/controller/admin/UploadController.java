@@ -4,7 +4,6 @@ import com.course.server.dto.FileDto;
 import com.course.server.dto.ResponseDto;
 import com.course.server.enums.FileUseEnum;
 import com.course.server.service.FileService;
-import com.course.server.util.UuidUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -50,12 +49,12 @@ public class UploadController {
                               Integer size,
                               Integer shardIndex,
                               Integer shardSize,
-                              Integer shardTotal
+                              Integer shardTotal,
+                              String key
     ) throws Exception {
         LOG.info("上传文件开始");
 
         FileUseEnum useEnum = FileUseEnum.getByCode(use);
-        String key = UuidUtil.getShortUuid();
 
         //如果文件不存在就创建
         String dir = useEnum.name().toLowerCase();
