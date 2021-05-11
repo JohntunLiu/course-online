@@ -1,5 +1,4 @@
-package com.course.business.controller;
-
+package com.course.system.controller;
 
 import com.course.server.dto.ResponseDto;
 import com.course.server.exception.BusinessException;
@@ -35,4 +34,3 @@ public class ControllerExceptionHandler {
         return responseDto;
     }
 }
-
