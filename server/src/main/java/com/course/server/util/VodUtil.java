@@ -42,7 +42,7 @@ public class VodUtil {
         request.setTitle(fileName);
         //request.setDescription("this is desc");
         //request.setTags("tag1,tag2");
-//        request.setCoverURL("http://vod.aliyun.com/test_cover_url.jpg");
+        request.setCoverURL("https://outin-6811af90b1f711eb8d0600163e1c94a4.oss-cn-shanghai.aliyuncs.com/image/default/A68B39A32C28438FB2645E92404A7DAD-6-2.jpg?Expires=1620701762&OSSAccessKeyId=LTAI4FfD63zoqnm6ckiBFfXZ&Signature=K87rGXqC%2FLwgSOyBWmo9wYtMY64%3D");
         request.setCateId(1000300660L);
         request.setTemplateGroupId("ba876d3cc92d255414f1726a32dfa181");
         //request.setWorkflowId("");
