@@ -1,12 +1,26 @@
-package com.course.server.domain;
+package com.course.server.dto;
 
-public class User {
+
+public class UserDto {
+
+    /**
+     * id
+     */
     private String id;
 
+    /**
+     * 登陆名
+     */
     private String loginName;
 
+    /**
+     * 昵称
+     */
     private String name;
 
+    /**
+     * 密码
+     */
     private String password;
 
     public String getId() {
@@ -41,6 +55,7 @@ public class User {
         this.password = password;
     }
 
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -54,4 +69,5 @@ public class User {
         sb.append("]");
         return sb.toString();
     }
+
 }
