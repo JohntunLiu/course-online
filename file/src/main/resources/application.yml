@@ -19,3 +19,11 @@ file:
   path: D:/project/courseFile/
   domain: http://127.0.0.1:9000/file/f/
 
+#OSS
+oss:
+  accessKeyId: LTAI5t98DnXBH1UP25yWhqTT
+  accessKeySecret: LlPzqHwiBPSJ6b0rh7bnjYB804xulI
+  endpoint: http://oss-cn-chengdu.aliyuncs.com
+  domain: http://tang1303.oss-cn-chengdu.aliyuncs.com/
+  bucket: tang1303
+
