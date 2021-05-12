@@ -149,6 +149,7 @@
       return {
         user: {},
         users: [],
+        loginUser: {},
       }
     },
 
@@ -212,7 +213,7 @@
        * id有值时更新，无值时插入
        *
        */
-      save() {
+      save: function () {
         let _this = this;
 
         // 保存校验
@@ -238,6 +239,11 @@
             $("#form-modal").modal("hide");
             _this.list(1);
             Toast.success("保存成功");
+            // let loginUser = Tool.getLoginUser();
+            // if (loginUser.loginName == _this.user.loginName) {
+            //   loginUser.name = _this.user.name;
+            //   Tool.setLoginUser();
+            // }
           } else {
             Toast.warning(resp.message);
           }

@@ -131,6 +131,7 @@
           if (resp.success) {
             console.log("login success: " + resp.content);
             let loginUser = resp.content;
+            Tool.setLoginUser(loginUser);
             this.$router.push("/welcome");
 
           } else {

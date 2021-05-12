@@ -7,7 +7,12 @@
 <script>
 export default {
   name: 'welcome',
-
+  data: function () {
+    return {
+      loginUser: {},
+      imageCodeToken: ""
+    }
+  },
   mounted: function () {
     // sidebar激活样式方法一
     // this.$parent.activeSidebar("welcome-sidebar");
