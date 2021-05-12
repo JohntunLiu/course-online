@@ -2,6 +2,7 @@ package com.course.server.service;
 
 import com.course.server.domain.User;
 import com.course.server.domain.UserExample;
+import com.course.server.dto.LoginUserDto;
 import com.course.server.dto.PageDto;
 import com.course.server.dto.UserDto;
 import com.course.server.exception.BusinessException;
@@ -11,6 +12,7 @@ import com.course.server.util.CopyUtil;
 import com.course.server.util.UuidUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -20,6 +22,7 @@ import java.util.List;
 
 
 @Service
+@Slf4j
 public class UserService {
 
     @Resource
@@ -31,8 +34,6 @@ public class UserService {
     public void list(PageDto pageDto) {
         PageHelper.startPage(pageDto.getPage(),pageDto.getSize());
         UserExample userExample = new UserExample();
-
-
         List<User> users = userMapper.selectByExample(userExample);
         PageInfo<User> pageInfo = new PageInfo<>(users);
         pageDto.setTotal(pageInfo.getTotal());
@@ -58,10 +59,27 @@ public class UserService {
      */
 
     public void savePassword(UserDto userDto) {
-
         User user = CopyUtil.copy(userDto, User.class);
         userMapper.updateByPrimaryKeySelective(user);
+    }
 
+    /**
+     * 登录
+     * @param userDto
+     */
+
+    public LoginUserDto login(UserDto userDto) {
+        User user = selectByLoginName(userDto.getLoginName());
+        if (user == null) {
+            log.info("用户不存在, {}", userDto.getLoginName());
+            throw new BusinessException(BusinessExceptionCode.LOGIN_USER_ERROR);
+        } else if (user.getPassword().equals(userDto.getPassword())) {
+            LoginUserDto loginUserDto = CopyUtil.copy(user, LoginUserDto.class);
+            return loginUserDto;
+        } else {
+            log.info("密码错误, 原始密码:{}, 输入密码:{}",user.getPassword(),userDto.getPassword());
+            throw new BusinessException(BusinessExceptionCode.LOGIN_USER_ERROR);
+        }
     }
     /**
     * 新增

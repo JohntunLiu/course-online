@@ -30,14 +30,14 @@
                       <fieldset>
                         <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="Username"/>
+															<input v-model="user.loginName" type="text" class="form-control" placeholder="用户名"/>
 															<i class="ace-icon fa fa-user"></i>
 														</span>
                         </label>
 
                         <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="Password"/>
+															<input v-model="user.password" type="password" class="form-control" placeholder="密码"/>
 															<i class="ace-icon fa fa-lock"></i>
 														</span>
                         </label>
@@ -102,22 +102,46 @@
 
 <script>
 
-export default {
-  name: 'login',
-
-  mounted() {
-    $('body').removeClass('no-skin');
-    $('body').attr('class', 'login-layout light-login');
-  },
-
-  methods: {
-
-    login() {
-      this.$router.push("/welcome")
+  export default {
+    name: "login",
+    data: function () {
+      return {
+        user: {},
+        remember: true, // 默认勾选记住我
+        imageCodeToken: ""
+      }
+    }, mounted() {
+      $('body').removeClass('no-skin');
+      $('body').attr('class', 'login-layout light-login');
     },
-  }
 
-}
+    methods: {
+
+      login() {
+        let _this = this;
+
+
+        let md5 = hex_md5(_this.user.password);
+        _this.user.password = hex_md5(_this.user.password + KEY);
+
+        Loading.show();
+        _this.$ajax.post(process.env.VUE_APP_SERVER + '/system/admin/user/login', _this.user).then((response) => {
+          Loading.hide();
+          let resp = response.data;
+          if (resp.success) {
+            console.log("login success: " + resp.content);
+            let loginUser = resp.content;
+            this.$router.push("/welcome");
+
+          } else {
+            Toast.warning(resp.message);
+            _this.user.password = "";
+
+          }
+        },);
+      }
+    }
+  }
 </script>
 
 
