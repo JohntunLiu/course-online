@@ -51,6 +51,18 @@ public class UserService {
         }
 
     }
+
+    /**
+     * 重置密码
+     * @param userDto
+     */
+
+    public void savePassword(UserDto userDto) {
+
+        User user = CopyUtil.copy(userDto, User.class);
+        userMapper.updateByPrimaryKeySelective(user);
+
+    }
     /**
     * 新增
     */
@@ -67,7 +79,8 @@ public class UserService {
     * 更新
     */
     private void update(User user) {
-        userMapper.updateByPrimaryKey(user);
+        user.setPassword(null);
+        userMapper.updateByPrimaryKeySelective(user);
     }
 
     /**

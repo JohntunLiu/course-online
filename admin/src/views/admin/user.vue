@@ -5,28 +5,30 @@
     <p>
 
       <!-- Button trigger modal -->
-      <button @click="add()" class="btn btn-white btn-default btn-round eye-protector-processed" style="transition: background-color 0.3s ease 0s; border-color: rgba(0, 0, 0, 0.35); color: rgb(0, 0, 0); background-color: rgb(193, 230, 198);">
-        <i class="ace-icon fa fa-edit " ></i>
+      <button @click="add()" class="btn btn-white btn-default btn-round eye-protector-processed"
+              style="transition: background-color 0.3s ease 0s; border-color: rgba(0, 0, 0, 0.35); color: rgb(0, 0, 0); background-color: rgb(193, 230, 198);">
+        <i class="ace-icon fa fa-edit "></i>
         新增
       </button>
       &nbsp;
-      <button @click="list(1)" class="btn btn-white btn-default btn-round eye-protector-processed" style="transition: background-color 0.3s ease 0s; border-color: rgba(0, 0, 0, 0.35); color: rgb(0, 0, 0); background-color: rgb(193, 230, 198);">
-        <i class="ace-icon fa fa-refresh " ></i>
+      <button @click="list(1)" class="btn btn-white btn-default btn-round eye-protector-processed"
+              style="transition: background-color 0.3s ease 0s; border-color: rgba(0, 0, 0, 0.35); color: rgb(0, 0, 0); background-color: rgb(193, 230, 198);">
+        <i class="ace-icon fa fa-refresh "></i>
         刷新
       </button>
     </p>
 
-    <Pagination ref="pagination" v-bind:list="list" v-bind:itemCount="8" ></Pagination>
+    <Pagination ref="pagination" v-bind:list="list" v-bind:itemCount="8"></Pagination>
     <table id="simple-table" class="table  table-bordered table-hover">
       <thead>
       <tr>
-            <th>id</th>
+        <th>id</th>
 
-            <th>登陆名</th>
+        <th>登陆名</th>
 
-            <th>昵称</th>
+        <th>昵称</th>
 
-            <th>密码</th>
+        <th>密码</th>
         <th>操作</th>
       </tr>
       </thead>
@@ -34,13 +36,16 @@
       <tbody>
 
       <tr v-for="user in users">
-            <td>{{ user.id}}</td>
-            <td>{{ user.loginName}}</td>
-            <td>{{ user.name}}</td>
-            <td>{{ user.password}}</td>
+        <td>{{ user.id }}</td>
+        <td>{{ user.loginName }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.password }}</td>
 
         <td>
           <div class="hidden-sm hidden-xs btn-group">
+            <button  v-on:click="editPassword(user)" class="btn btn-xs btn-info">
+              <i class="ace-icon fa fa-key bigger-120"></i>
+            </button>
 
             <button @click="edit(user)" class="btn btn-xs btn-info">
               <i class="ace-icon fa fa-pencil bigger-120"></i>
@@ -58,34 +63,35 @@
       </tbody>
     </table>
     <!-- Modal -->
-    <div  id="form-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div id="form-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" >表单</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">表单</h4>
           </div>
           <div class="modal-body">
             <form class="form-horizontal">
 
-                   <div class="form-group">
-                     <label class="col-sm-2 control-label">登陆名</label>
-                     <div class="col-sm-10">
-                       <input v-model="user.loginName" v-bind:disabled="user.id" class="form-control">
-                     </div>
-                   </div>
-                   <div class="form-group">
-                     <label class="col-sm-2 control-label">昵称</label>
-                     <div class="col-sm-10">
-                       <input v-model="user.name" class="form-control">
-                     </div>
-                   </div>
-                   <div class="form-group">
-                     <label class="col-sm-2 control-label">密码</label>
-                     <div class="col-sm-10">
-                       <input v-model="user.password" class="form-control">
-                     </div>
-                   </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">登陆名</label>
+                <div class="col-sm-10">
+                  <input v-model="user.loginName" v-bind:disabled="user.id" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">昵称</label>
+                <div class="col-sm-10">
+                  <input v-model="user.name" class="form-control">
+                </div>
+              </div>
+              <div class="form-group" v-show="!user.id">
+                <label class="col-sm-2 control-label">密码</label>
+                <div class="col-sm-10">
+                  <input v-model="user.password" type="password" class="form-control">
+                </div>
+              </div>
             </form>
           </div>
           <div class="modal-footer">
@@ -95,6 +101,39 @@
         </div>
       </div>
     </div>
+
+    <div id="edit-password-modal" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">修改密码</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label class="control-label col-sm-2">新密码</label>
+                <div class="col-sm-10">
+                  <input class="form-control" type="password" v-model="user.password" name="password">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-white btn-default btn-round" data-dismiss="modal">
+              <i class="ace-icon fa fa-times"></i>
+              取消
+            </button>
+            <button type="button" class="btn btn-white btn-info btn-round" v-on:click="savePassword()">
+              <i class="ace-icon fa fa-plus blue"></i>
+              保存密码
+            </button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
   </div>
 
 </template>
@@ -102,11 +141,12 @@
 <script>
 
   import Pagination from "../../components/pagination"
+
   export default {
     name: 'system-user',
     components: {Pagination},
     data: function () {
-      return{
+      return {
         user: {},
         users: [],
       }
@@ -128,18 +168,30 @@
         $("#form-modal").modal("show");
       },
 
-      edit(user) {
+      /**
+       * 修改用户信息
+       *
+       */
+       edit(user) {
         let _this = this;
-        _this.user = $.extend({},user);
+        _this.user = $.extend({}, user);
         $("#form-modal").modal("show");
       },
 
-      /**
+       editPassword(user) {
+        let _this = this;
+        _this.user = $.extend({}, user);
+        _this.user.password = null;
+        $("#edit-password-modal").modal("show");
+      },
+
+       /**
        * 点击【查询】
        * @param page
        */
 
       list(page) {
+
         let _this = this;
         Loading.show();
 
@@ -165,10 +217,10 @@
 
         // 保存校验
         if (1 != 1
-                || !Validator.require(_this.user.loginName, "登陆名")
-                || !Validator.length(_this.user.loginName, "登陆名", 1, 50)
-                || !Validator.length(_this.user.name, "昵称", 1, 50)
-                || !Validator.require(_this.user.password, "密码")
+          || !Validator.require(_this.user.loginName, "登陆名")
+          || !Validator.length(_this.user.loginName, "登陆名", 1, 50)
+          || !Validator.length(_this.user.name, "昵称", 1, 50)
+          || !Validator.require(_this.user.password, "密码")
         ) {
           return;
         }
@@ -177,13 +229,42 @@
         Loading.show();
 
         _this.$ajax.post(process.env.VUE_APP_SERVER + '/system/admin/user/save',
-                _this.user
+          _this.user
         ).then((response) => {
           Loading.hide();
 
           let resp = response.data;
           if (resp.success) {
             $("#form-modal").modal("hide");
+            _this.list(1);
+            Toast.success("保存成功");
+          } else {
+            Toast.warning(resp.message);
+          }
+
+        })
+      },
+
+      /**
+       * 点击【保存】
+       * 修改密码
+       * id有值时更新，无值时插入
+       *
+       */
+      savePassword() {
+        let _this = this;
+
+        _this.user.password = hex_md5(_this.user.password + KEY);
+        Loading.show();
+
+        _this.$ajax.post(process.env.VUE_APP_SERVER + '/system/admin/user/save-password',
+          _this.user
+        ).then((response) => {
+          Loading.hide();
+
+          let resp = response.data;
+          if (resp.success) {
+            $("#edit-password-modal").modal("hide");
             _this.list(1);
             Toast.success("保存成功");
           } else {
@@ -202,19 +283,18 @@
 
         Confirm.show("删除用户后不可恢复，确认删除？", function () {
 
-                  Loading.show();
-                  _this.$ajax.post(process.env.VUE_APP_SERVER + '/system/admin/user/delete/'+id,
-                          _this.user
-                  ).then((response) => {
-                    Loading.hide();
-                    let resp = response.data;
-                    if (resp.success) {
-                      _this.list(1);
-                      Toast.success("删除成功！");
-                    }
-                  })
-                }
-
+            Loading.show();
+            _this.$ajax.post(process.env.VUE_APP_SERVER + '/system/admin/user/delete/' + id,
+              _this.user
+            ).then((response) => {
+              Loading.hide();
+              let resp = response.data;
+              if (resp.success) {
+                _this.list(1);
+                Toast.success("删除成功！");
+              }
+            })
+          }
         );
       }
     }
