@@ -46,7 +46,7 @@
 
                         <div class="clearfix">
                           <label class="inline">
-                            <input type="checkbox" class="ace"/>
+                            <input v-model="remember" type="checkbox" class="ace"/>
                             <span class="lbl"> 记住我</span>
                           </label>
 
@@ -111,8 +111,14 @@
         imageCodeToken: ""
       }
     }, mounted() {
+      let _this = this;
       $('body').removeClass('no-skin');
       $('body').attr('class', 'login-layout light-login');
+
+      let rememberUser = LocalStorage.get(LOCAL_KEY_REMEMBER_USER);
+      if (rememberUser) {
+        _this.user = rememberUser;
+      }
     },
 
     methods: {
@@ -120,9 +126,14 @@
       login() {
         let _this = this;
 
+        // let passwordShow = _this.user.password;
 
-        let md5 = hex_md5(_this.user.password);
-        _this.user.password = hex_md5(_this.user.password + KEY);
+        let md5 = hex_md5(_this.user.password) ;
+        let rememberUser = LocalStorage.get(LOCAL_KEY_REMEMBER_USER ) || {};
+        if (md5 !== rememberUser.md5) {
+
+          _this.user.password = hex_md5(_this.user.password + KEY);
+        }
 
         Loading.show();
         _this.$ajax.post(process.env.VUE_APP_SERVER + '/system/admin/user/login', _this.user).then((response) => {
@@ -132,6 +143,19 @@
             console.log("login success: " + resp.content);
             let loginUser = resp.content;
             Tool.setLoginUser(loginUser);
+            if (_this.remember) {
+              let md5 = hex_md5(_this.user.password);
+
+              LocalStorage.set(LOCAL_KEY_REMEMBER_USER, {
+                loginName: loginUser.loginName,
+                // password: passwordShow,
+                password: _this.user.password,
+                md5: md5
+
+              });
+            } else {
+              LocalStorage.set(LOCAL_KEY_REMEMBER_USER, null);
+            }
             this.$router.push("/welcome");
 
           } else {
