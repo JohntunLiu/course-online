@@ -197,3 +197,10 @@
 </script>
 
 
+<style scoped>
+  .input-group-addon {
+    padding: 0;
+  }
+</style>
+
+
