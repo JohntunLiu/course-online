@@ -239,11 +239,13 @@
             $("#form-modal").modal("hide");
             _this.list(1);
             Toast.success("保存成功");
-            // let loginUser = Tool.getLoginUser();
-            // if (loginUser.loginName == _this.user.loginName) {
-            //   loginUser.name = _this.user.name;
-            //   Tool.setLoginUser();
-            // }
+            //修改主界面显示
+            let loginUser = Tool.getLoginUser();
+            if (loginUser.loginName == _this.user.loginName) {
+              loginUser.name = _this.user.name;
+              Tool.setLoginUser(loginUser);
+
+            }
           } else {
             Toast.warning(resp.message);
           }
