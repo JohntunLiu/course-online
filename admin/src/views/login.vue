@@ -157,7 +157,7 @@
           Loading.hide();
           let resp = response.data;
           if (resp.success) {
-            console.log("login success: " + resp.content);
+            console.log("登录成功：{}", resp.content);
             let loginUser = resp.content;
             Tool.setLoginUser(loginUser);
 
