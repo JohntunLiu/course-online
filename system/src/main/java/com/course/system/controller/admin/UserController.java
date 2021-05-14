@@ -1,18 +1,22 @@
 package com.course.system.controller.admin;
 
 
-import com.course.server.dto.*;
+import com.course.server.dto.LoginUserDto;
+import com.course.server.dto.PageDto;
+import com.course.server.dto.ResponseDto;
+import com.course.server.dto.UserDto;
 import com.course.server.service.UserService;
 import com.course.server.util.ValidatorUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.util.DigestUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import static com.course.server.dto.Constants.*;
+import static com.course.server.dto.Constants.LOGIN_USER;
 
 
 @RestController
@@ -90,9 +94,29 @@ public class UserController {
      */
     @PostMapping("/login")
     public ResponseDto login(@RequestBody UserDto userDto, HttpServletRequest request) {
-
+        log.info("用户登录开始");
         userDto.setPassword(DigestUtils.md5DigestAsHex(userDto.getPassword().getBytes()));
         ResponseDto responseDto = new ResponseDto();
+
+        // 根据验证码token去获取缓存中的验证码，和用户输入的验证码是否一致
+        log.info( (String) request.getSession().getId());
+         String imageCode = (String) request.getSession().getAttribute(userDto.getImageCodeToken());
+        if (StringUtils.isEmpty(imageCode)) {
+            responseDto.setSuccess(false);
+            responseDto.setMessage("验证码已过期");
+            log.info("用户登录失败，验证码已过期");
+            return responseDto;
+        }
+        if (!imageCode.equalsIgnoreCase(userDto.getImageCode())) {
+            responseDto.setSuccess(false);
+            responseDto.setMessage("验证码不对");
+            log.info("用户登录失败，验证码不对");
+            return responseDto;
+        } else {
+            // 验证通过后，移除验证码
+            request.getSession().removeAttribute(userDto.getImageCodeToken());
+//            redisTemplate.delete(userDto.getImageCodeToken());
+        }
         LoginUserDto loginUserDto = userService.login(userDto);
         request.getSession().setAttribute(LOGIN_USER, loginUserDto);
         responseDto.setContent(loginUserDto);

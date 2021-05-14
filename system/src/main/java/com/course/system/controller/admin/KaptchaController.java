@@ -1,6 +1,7 @@
 package com.course.system.controller.admin;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,6 +20,7 @@ import java.io.ByteArrayOutputStream;
 @RestController
 @ComponentScan({"com.course.server.config"})
 @RequestMapping("/admin/kaptcha")
+@Slf4j
 public class KaptchaController {
     public static final String BUSINESS_NAME = "图片验证码";
 
@@ -38,6 +40,7 @@ public class KaptchaController {
             // 生成验证码字符串
             String createText = defaultKaptcha.createText();
 
+            log.info(request.getSession().getId());
 //             将生成的验证码放入会话缓存中，后续验证的时候用到
              request.getSession().setAttribute(imageCodeToken, createText);
             // 将生成的验证码放入redis缓存中，后续验证的时候用到
