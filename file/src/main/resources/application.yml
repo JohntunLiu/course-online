@@ -13,7 +13,9 @@ server:
 
 eureka:
   client:
-    service-url:http://127.0.0.1:8761/eureka/
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka/
+
 
 file:
   path: D:/project/courseFile/
