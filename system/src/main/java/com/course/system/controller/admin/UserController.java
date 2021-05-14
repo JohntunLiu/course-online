@@ -9,6 +9,7 @@ import com.course.server.service.UserService;
 import com.course.server.util.ValidatorUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,9 @@ public class UserController {
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private RedisTemplate redisTemplate;
 
     /**
      * 查询
@@ -98,9 +102,10 @@ public class UserController {
         userDto.setPassword(DigestUtils.md5DigestAsHex(userDto.getPassword().getBytes()));
         ResponseDto responseDto = new ResponseDto();
 
+//        log.info( (String) request.getSession().getId());
         // 根据验证码token去获取缓存中的验证码，和用户输入的验证码是否一致
-        log.info( (String) request.getSession().getId());
-         String imageCode = (String) request.getSession().getAttribute(userDto.getImageCodeToken());
+//         String imageCode = (String) request.getSession().getAttribute(userDto.getImageCodeToken());
+        String imageCode = (String) redisTemplate.opsForValue().get(userDto.getImageCodeToken());
         if (StringUtils.isEmpty(imageCode)) {
             responseDto.setSuccess(false);
             responseDto.setMessage("验证码已过期");

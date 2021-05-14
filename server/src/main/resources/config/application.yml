@@ -5,12 +5,18 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     username: course
     password: root
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: "test123"
 
 mybatis:
   type-aliases-package: com.course.system.domain
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath:/mapper/**/*.xml
+
+
 
 
 
