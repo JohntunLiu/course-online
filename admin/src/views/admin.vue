@@ -385,10 +385,10 @@
               </li>
 
               <li class=""  id="system-resource-sidebar">
-                <a href="jqgrid.html">
+                <router-link to="/system/resource">
                   <i class="menu-icon fa fa-caret-right"></i>
-                  权限管理
-                </a>
+                  资源管理
+                </router-link>
 
                 <b class="arrow"></b>
               </li>

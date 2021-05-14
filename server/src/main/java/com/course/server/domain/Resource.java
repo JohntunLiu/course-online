@@ -1,31 +1,14 @@
-package com.course.server.dto;
+package com.course.server.domain;
 
-
-public class ResourceDto {
-
-    /**
-     * id
-     */
+public class Resource {
     private String id;
 
-    /**
-     * 名称|菜单或按钮
-     */
     private String name;
 
-    /**
-     * 页面|路由
-     */
     private String page;
 
-    /**
-     * 请求|接口
-     */
     private String request;
 
-    /**
-     * 父id
-     */
     private String parent;
 
     public String getId() {
@@ -68,7 +51,6 @@ public class ResourceDto {
         this.parent = parent;
     }
 
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -83,5 +65,4 @@ public class ResourceDto {
         sb.append("]");
         return sb.toString();
     }
-
 }
