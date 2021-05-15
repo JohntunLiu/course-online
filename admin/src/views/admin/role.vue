@@ -130,6 +130,9 @@
         roles: [],
         resources: [],
         zTree: {},
+        users: [],
+        roleUsers: [],
+
 
       }
     },
@@ -333,6 +336,38 @@
           }
         });
       },
+
+      /**
+       * 点击【用户】
+       */
+      editUser(role) {
+        let _this = this;
+        _this.role = $.extend({}, role);
+        _this.listUser();
+        $("#user-modal").modal("show");
+      },
+
+      /**
+       * 查询所有用户
+       */
+      listUser() {
+        let _this = this;
+        _this.$ajax.post(process.env.VUE_APP_SERVER + '/system/admin/user/list', {
+          page: 1,
+          size: 9999
+        }).then((response)=>{
+          let resp = response.data;
+          if (resp.success) {
+            _this.users = resp.content.list;
+            console.log(_this.users);
+            // _this.listRoleUser();
+          } else {
+            Toast.warning(resp.message);
+          }
+        })
+      },
+
+
 
     }
 
