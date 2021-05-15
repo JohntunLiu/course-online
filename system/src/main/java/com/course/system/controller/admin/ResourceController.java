@@ -2,6 +2,7 @@ package com.course.system.controller.admin;
 
 
 import com.course.server.dto.PageDto;
+import com.course.server.dto.ResourceDto;
 import com.course.server.dto.ResponseDto;
 import com.course.server.service.ResourceService;
 import com.course.server.util.ValidatorUtil;
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RestController
 @ComponentScan({"com.course.server"})
@@ -56,9 +58,19 @@ public class ResourceController {
     @PostMapping("/delete/{id}")
     public ResponseDto delete(@PathVariable String id) {
         ResponseDto responseDto = new ResponseDto();
-
         resourceService.delete(id);
+        return responseDto;
+    }
 
+
+    /**
+     * 资源树查询
+     */
+    @GetMapping("/load-tree")
+    public ResponseDto loadTree() {
+        ResponseDto responseDto = new ResponseDto();
+        List<ResourceDto> resourceDtoList = resourceService.loadTree();
+        responseDto.setContent(resourceDtoList);
         return responseDto;
     }
 
