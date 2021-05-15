@@ -316,6 +316,23 @@
       },
 
 
+      /**
+       * 加载角色资源关联记录
+       */
+      listRoleResource() {
+        let _this = this;
+        _this.$ajax.get(process.env.VUE_APP_SERVER + '/system/admin/role/list-resource/' + _this.role.id).then((response)=>{
+          let resp = response.data;
+          let resources = resp.content;
+
+          // 勾选查询到的资源：先把树的所有节点清空勾选，再勾选查询到的节点
+          _this.zTree.checkAllNodes(false);
+          for (let i = 0; i < resources.length; i++) {
+            let node = _this.zTree.getNodeByParam("id", resources[i]);
+            _this.zTree.checkNode(node, true);
+          }
+        });
+      },
 
     }
 
