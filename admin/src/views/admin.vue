@@ -550,9 +550,9 @@
 
       _this.loginUser = Tool.getLoginUser();
 
-      // if (!_this.hasResourceRouter(_this.$route.name)) {
-      //   _this.$router.push("/login");
-      // }
+      if (!_this.hasResourceRouter(_this.$route.name)) {
+        _this.$router.push("/login");
+      }
     },
     watch: {
       $route: {
