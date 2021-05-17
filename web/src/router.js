@@ -1,7 +1,7 @@
 import Vue from "vue"
 import Router from "vue-router"
 import Index from "./views/index.vue"
-// import List from "./views/list.vue"
+import List from "./views/list.vue"
 // import Detail from "./views/detail.vue"
 
 Vue.use(Router);
@@ -16,10 +16,11 @@ export default new Router({
         path: "/index",
         component: Index
     }
-        //, {
-    //     path: "/list",
-    //     component: List
-    // }, {
+        , {
+        path: "/list",
+        component: List
+    },
+        // {
     //     path: "/detail",
     //     component: Detail
     // }
