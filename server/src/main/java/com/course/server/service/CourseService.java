@@ -3,10 +3,7 @@ package com.course.server.service;
 import com.course.server.domain.Course;
 import com.course.server.domain.CourseContent;
 import com.course.server.domain.CourseExample;
-import com.course.server.dto.CourseContentDto;
-import com.course.server.dto.CourseDto;
-import com.course.server.dto.PageDto;
-import com.course.server.dto.SortDto;
+import com.course.server.dto.*;
 import com.course.server.enums.CourseStatusEnum;
 import com.course.server.mapper.CourseContentMapper;
 import com.course.server.mapper.CourseMapper;
@@ -53,16 +50,11 @@ public class CourseService {
     /**
     * 列表查询
     */
-    public void list(PageDto pageDto) {
-        PageHelper.startPage(pageDto.getPage(),pageDto.getSize());
-        CourseExample courseExample = new CourseExample();
-
-                courseExample.setOrderByClause("sort asc");
-
-        List<Course> courses = courseMapper.selectByExample(courseExample);
-        PageInfo<Course> pageInfo = new PageInfo<>(courses);
+    public void list(CoursePageDto pageDto) {
+        PageHelper.startPage(pageDto.getPage(), pageDto.getSize());
+        List<CourseDto> courseDtoList = myCourseMapper.list(pageDto);
+        PageInfo<CourseDto> pageInfo = new PageInfo<>(courseDtoList);
         pageDto.setTotal(pageInfo.getTotal());
-        List<CourseDto> courseDtoList = CopyUtil.copyList(courses, CourseDto.class);
         pageDto.setList(courseDtoList);
 
     }
