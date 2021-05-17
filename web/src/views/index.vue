@@ -13,6 +13,26 @@
       </div>
     </section>
 
+    <div class="album py-5 bg-light">
+      <div class="container">
+        <div class="title1">最新上线</div>
+        <div class="row">
+          <div v-for="o in news" class="col-md-4">
+            <the-course v-bind:course="o"></the-course>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="title2">好课推荐</div>
+        <div class="row">
+          <div v-for="o in news" class="col-md-4">
+            <the-course v-bind:course="o"></the-course>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="album py-5 bg-light eye-protector-processed" style="transition: background-color 0.3s ease 0s; background-color: rgb(248, 249, 250);">
       <div class="container">
 
