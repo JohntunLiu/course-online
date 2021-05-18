@@ -61,8 +61,11 @@
             </p>
             <p>
               <button v-on:click="toChapter(course)" class="btn btn-white btn-xs btn-info btn-round">
+              大章
+            </button>&nbsp;
+              <router-link to="/chapter" class="btn btn-white btn-xs btn-info btn-round">
                 大章
-              </button>&nbsp;
+              </router-link>&nbsp;
               <button v-on:click="toContent(course)" class="btn btn-white btn-xs btn-info btn-round">
                 内容
               </button>&nbsp;

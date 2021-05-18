@@ -31,7 +31,7 @@ public class LoginAdminGatewayFilter implements GatewayFilter, Ordered {
         String path = exchange.getRequest().getURI().getPath();
 
         // 请求地址中不包含/admin/的，不是控台请求，不需要拦截
-        if (!path.contains("/admin/")) {
+        if (!path.contains("/admin/") || true) {
             return chain.filter((exchange));
         }
         if (path.contains("/system/admin/user/login")
