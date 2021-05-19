@@ -4,8 +4,11 @@ import com.alibaba.fastjson.JSON;
 import com.course.server.dto.LoginMemberDto;
 import com.course.server.dto.MemberDto;
 import com.course.server.dto.ResponseDto;
+import com.course.server.dto.SmsDto;
+import com.course.server.enums.SmsUseEnum;
 import com.course.server.exception.BusinessException;
 import com.course.server.service.MemberService;
+import com.course.server.service.SmsService;
 import com.course.server.util.UuidUtil;
 import com.course.server.util.ValidatorUtil;
 import org.slf4j.Logger;
@@ -31,8 +34,8 @@ public class MemberController {
     @Resource(name = "redisTemplate")
     private RedisTemplate redisTemplate;
 
-//    @Resource
-//    private SmsService smsService;
+    @Resource
+    private SmsService smsService;
 
     /**
      * 保存，id有值时更新，无值时新增
@@ -50,12 +53,12 @@ public class MemberController {
         memberDto.setPassword(DigestUtils.md5DigestAsHex(memberDto.getPassword().getBytes()));
 
         // 校验短信验证码
-//        SmsDto smsDto = new SmsDto();
-//        smsDto.setMobile(memberDto.getMobile());
-//        smsDto.setCode(memberDto.getSmsCode());
-//        smsDto.setUse(SmsUseEnum.REGISTER.getCode());
-//        smsService.validCode(smsDto);
-//        LOG.info("短信验证码校验通过");
+        SmsDto smsDto = new SmsDto();
+        smsDto.setMobile(memberDto.getMobile());
+        smsDto.setCode(memberDto.getSmsCode());
+        smsDto.setUse(SmsUseEnum.REGISTER.getCode());
+        smsService.validCode(smsDto);
+        LOG.info("短信验证码校验通过");
 
         ResponseDto responseDto = new ResponseDto();
         memberService.save(memberDto);
@@ -133,13 +136,13 @@ public class MemberController {
         memberDto.setPassword(DigestUtils.md5DigestAsHex(memberDto.getPassword().getBytes()));
         ResponseDto<MemberDto> responseDto = new ResponseDto();
 
-//        // 校验短信验证码
-//        SmsDto smsDto = new SmsDto();
-//        smsDto.setMobile(memberDto.getMobile());
-//        smsDto.setCode(memberDto.getSmsCode());
-//        smsDto.setUse(SmsUseEnum.FORGET.getCode());
-//        smsService.validCode(smsDto);
-//        LOG.info("短信验证码校验通过");
+        // 校验短信验证码
+        SmsDto smsDto = new SmsDto();
+        smsDto.setMobile(memberDto.getMobile());
+        smsDto.setCode(memberDto.getSmsCode());
+        smsDto.setUse(SmsUseEnum.FORGET.getCode());
+        smsService.validCode(smsDto);
+        LOG.info("短信验证码校验通过");
 
         // 重置密码
         memberService.resetPassword(memberDto);

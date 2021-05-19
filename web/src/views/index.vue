@@ -18,10 +18,7 @@
         <div class="title1">最新上线</div>
         <div class="row">
           <div v-for="o in news" class="col-md-4">
-
             <the-course v-bind:course="o"></the-course>
-
-
           </div>
         </div>
 
@@ -36,21 +33,17 @@
       </div>
     </div>
 
-
-
   </main>
-
 </template>
 
 <script>
 
   import TheCourse from "../components/the-course";
-
   export default {
     name: 'index',
     components: {TheCourse},
     data: function () {
-      return{
+      return {
         news: [],
       }
     },
@@ -58,9 +51,7 @@
       let _this = this;
       _this.listNew();
     },
-
     methods: {
-
       /**
        * 查询新上好课
        */
@@ -76,9 +67,7 @@
           console.log("error：", response);
         })
       },
-
     }
-
   }
 </script>
 

@@ -1,6 +1,5 @@
 package com.course.business.controller;
 
-
 import com.course.server.dto.ResponseDto;
 import com.course.server.exception.BusinessException;
 import com.course.server.exception.ValidatorException;
@@ -35,4 +34,3 @@ public class ControllerExceptionHandler {
         return responseDto;
     }
 }
-

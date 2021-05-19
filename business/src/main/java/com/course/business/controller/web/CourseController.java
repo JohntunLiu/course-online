@@ -15,7 +15,8 @@ import java.util.List;
 
 @RestController("webCourseController")
 @RequestMapping("/web/course")
-public class CourseController {
+public class
+CourseController {
 
     private static final Logger LOG = LoggerFactory.getLogger(CourseController.class);
     public static final String BUSINESS_NAME = "课程";

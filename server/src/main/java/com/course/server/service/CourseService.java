@@ -12,7 +12,8 @@ import com.course.server.util.CopyUtil;
 import com.course.server.util.UuidUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -21,10 +22,10 @@ import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
-
 @Service
-@Slf4j
 public class CourseService {
+
+    private static final Logger LOG = LoggerFactory.getLogger(CourseService.class);
 
     @Resource
     private CourseMapper courseMapper;
@@ -48,17 +49,16 @@ public class CourseService {
     private SectionService sectionService;
 
     /**
-    * 列表查询
-    */
+     * 列表查询：关联课程分类表
+     * @param pageDto
+     */
     public void list(CoursePageDto pageDto) {
         PageHelper.startPage(pageDto.getPage(), pageDto.getSize());
         List<CourseDto> courseDtoList = myCourseMapper.list(pageDto);
         PageInfo<CourseDto> pageInfo = new PageInfo<>(courseDtoList);
         pageDto.setTotal(pageInfo.getTotal());
         pageDto.setList(courseDtoList);
-
     }
-
 
     /**
      * 新课列表查询，只查询已发布的，按创建日期倒序
@@ -73,46 +73,45 @@ public class CourseService {
     }
 
     /**
-     * 保存
-     * @param courseDto
+     * 保存，id有值时更新，无值时新增
      */
     @Transactional
     public void save(CourseDto courseDto) {
-
         Course course = CopyUtil.copy(courseDto, Course.class);
         if (StringUtils.isEmpty(courseDto.getId())) {
-        this.insert(course);
+            this.insert(course);
         } else {
-        this.update(course);
+            this.update(course);
         }
+
         // 批量保存课程分类
         courseCategoryService.saveBatch(course.getId(), courseDto.getCategorys());
-
     }
+
     /**
-    * 新增
-    */
+     * 新增
+     */
     private void insert(Course course) {
-                Date now = new Date();
-                course.setCreatedAt(now);
-                course.setUpdatedAt(now);
+        Date now = new Date();
+        course.setCreatedAt(now);
+        course.setUpdatedAt(now);
         course.setId(UuidUtil.getShortUuid());
         courseMapper.insert(course);
     }
 
     /**
-    * 更新
-    */
+     * 更新
+     */
     private void update(Course course) {
-                course.setUpdatedAt(new Date());
+        course.setUpdatedAt(new Date());
         courseMapper.updateByPrimaryKey(course);
     }
 
     /**
-    * 删除
-    */
+     * 删除
+     */
     public void delete(String id) {
-    courseMapper.deleteByPrimaryKey(id);
+        courseMapper.deleteByPrimaryKey(id);
     }
 
     /**
@@ -121,7 +120,7 @@ public class CourseService {
      * @return
      */
     public void updateTime(String courseId) {
-        log.info("更新课程时长：{}", courseId);
+        LOG.info("更新课程时长：{}", courseId);
         myCourseMapper.updateTime(courseId);
     }
 

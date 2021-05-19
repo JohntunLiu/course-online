@@ -1,25 +1,22 @@
 package com.course.business.controller.admin;
 
-
 import com.course.server.dto.*;
 import com.course.server.service.CourseCategoryService;
 import com.course.server.service.CourseService;
 import com.course.server.util.ValidatorUtil;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.ComponentScan;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
-@ComponentScan({"com.course.server"})
 @RequestMapping("/admin/course")
-@Slf4j
 public class CourseController {
 
+    private static final Logger LOG = LoggerFactory.getLogger(CourseController.class);
     public static final String BUSINESS_NAME = "课程";
-
 
     @Resource
     private CourseService courseService;
@@ -28,48 +25,40 @@ public class CourseController {
     private CourseCategoryService courseCategoryService;
 
     /**
-     * 查询
+     * 列表查询
      */
     @PostMapping("/list")
     public ResponseDto list(@RequestBody CoursePageDto pageDto) {
         ResponseDto responseDto = new ResponseDto();
-
         courseService.list(pageDto);
         responseDto.setContent(pageDto);
         return responseDto;
     }
 
     /**
-     * 保存
-     * 有id时更新 无id时插入
+     * 保存，id有值时更新，无值时新增
      */
     @PostMapping("/save")
     public ResponseDto save(@RequestBody CourseDto courseDto) {
-
-//保存校验
-
+        // 保存校验
         ValidatorUtil.require(courseDto.getName(), "名称");
         ValidatorUtil.length(courseDto.getName(), "名称", 1, 50);
         ValidatorUtil.length(courseDto.getSummary(), "概述", 1, 2000);
         ValidatorUtil.length(courseDto.getImage(), "封面", 1, 100);
 
         ResponseDto responseDto = new ResponseDto();
-
         courseService.save(courseDto);
         responseDto.setContent(courseDto);
-
         return responseDto;
     }
 
     /**
      * 删除
      */
-    @PostMapping("/delete/{id}")
-    public ResponseDto save(@PathVariable String id) {
+    @DeleteMapping("/delete/{id}")
+    public ResponseDto delete(@PathVariable String id) {
         ResponseDto responseDto = new ResponseDto();
-
         courseService.delete(id);
-
         return responseDto;
     }
 
@@ -102,10 +91,9 @@ public class CourseController {
 
     @RequestMapping(value = "/sort")
     public ResponseDto sort(@RequestBody SortDto sortDto) {
-        log.info("更新排序");
+        LOG.info("更新排序");
         ResponseDto responseDto = new ResponseDto();
         courseService.sort(sortDto);
         return responseDto;
     }
-
 }

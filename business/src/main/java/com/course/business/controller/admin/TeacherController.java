@@ -1,30 +1,26 @@
 package com.course.business.controller.admin;
 
-
 import com.course.server.dto.PageDto;
 import com.course.server.dto.ResponseDto;
 import com.course.server.dto.TeacherDto;
 import com.course.server.service.TeacherService;
 import com.course.server.util.ValidatorUtil;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.ComponentScan;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
-@ComponentScan({"com.course.server"})
 @RequestMapping("/admin/teacher")
-@Slf4j
 public class TeacherController {
 
+    private static final Logger LOG = LoggerFactory.getLogger(TeacherController.class);
     public static final String BUSINESS_NAME = "讲师";
-
 
     @Resource
     private TeacherService teacherService;
-
 
     /**
      * 列表查询
@@ -38,26 +34,22 @@ public class TeacherController {
     }
 
     /**
-     * 查询
+     * 列表查询
      */
     @PostMapping("/list")
     public ResponseDto list(@RequestBody PageDto pageDto) {
         ResponseDto responseDto = new ResponseDto();
-
         teacherService.list(pageDto);
         responseDto.setContent(pageDto);
         return responseDto;
     }
 
     /**
-     * 保存
-     * 有id时更新 无id时插入
+     * 保存，id有值时更新，无值时新增
      */
     @PostMapping("/save")
     public ResponseDto save(@RequestBody TeacherDto teacherDto) {
-
-//保存校验
-
+        // 保存校验
         ValidatorUtil.require(teacherDto.getName(), "姓名");
         ValidatorUtil.length(teacherDto.getName(), "姓名", 1, 50);
         ValidatorUtil.length(teacherDto.getNickname(), "昵称", 1, 50);
@@ -67,23 +59,18 @@ public class TeacherController {
         ValidatorUtil.length(teacherDto.getIntro(), "简介", 1, 500);
 
         ResponseDto responseDto = new ResponseDto();
-
         teacherService.save(teacherDto);
         responseDto.setContent(teacherDto);
-
         return responseDto;
     }
 
     /**
      * 删除
      */
-    @PostMapping("/delete/{id}")
-    public ResponseDto save(@PathVariable String id) {
+    @DeleteMapping("/delete/{id}")
+    public ResponseDto delete(@PathVariable String id) {
         ResponseDto responseDto = new ResponseDto();
-
         teacherService.delete(id);
-
         return responseDto;
     }
-
 }

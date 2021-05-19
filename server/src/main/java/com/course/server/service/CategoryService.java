@@ -9,7 +9,6 @@ import com.course.server.util.CopyUtil;
 import com.course.server.util.UuidUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -17,9 +16,7 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.util.List;
 
-
 @Service
-@Slf4j
 public class CategoryService {
 
     @Resource
@@ -29,60 +26,57 @@ public class CategoryService {
      * 列表查询
      */
     public List<CategoryDto> all() {
-
         CategoryExample categoryExample = new CategoryExample();
         categoryExample.setOrderByClause("sort asc");
-        List<Category> categorys = categoryMapper.selectByExample(categoryExample);
-        List<CategoryDto> categoryDtoList = CopyUtil.copyList(categorys, CategoryDto.class);
+        List<Category> categoryList = categoryMapper.selectByExample(categoryExample);
+        List<CategoryDto> categoryDtoList = CopyUtil.copyList(categoryList, CategoryDto.class);
         return categoryDtoList;
-
     }
 
     /**
-    * 列表查询
-    */
+     * 列表查询
+     */
     public void list(PageDto pageDto) {
-        PageHelper.startPage(pageDto.getPage(),pageDto.getSize());
+        PageHelper.startPage(pageDto.getPage(), pageDto.getSize());
         CategoryExample categoryExample = new CategoryExample();
-
-                categoryExample.setOrderByClause("sort asc");
-
-        List<Category> categorys = categoryMapper.selectByExample(categoryExample);
-        PageInfo<Category> pageInfo = new PageInfo<>(categorys);
+        categoryExample.setOrderByClause("sort asc");
+        List<Category> categoryList = categoryMapper.selectByExample(categoryExample);
+        PageInfo<Category> pageInfo = new PageInfo<>(categoryList);
         pageDto.setTotal(pageInfo.getTotal());
-        List<CategoryDto> categoryDtoList = CopyUtil.copyList(categorys, CategoryDto.class);
+        List<CategoryDto> categoryDtoList = CopyUtil.copyList(categoryList, CategoryDto.class);
         pageDto.setList(categoryDtoList);
-
     }
 
+    /**
+     * 保存，id有值时更新，无值时新增
+     */
     public void save(CategoryDto categoryDto) {
-
         Category category = CopyUtil.copy(categoryDto, Category.class);
         if (StringUtils.isEmpty(categoryDto.getId())) {
-        this.insert(category);
+            this.insert(category);
         } else {
-        this.update(category);
+            this.update(category);
         }
-
     }
+
     /**
-    * 新增
-    */
+     * 新增
+     */
     private void insert(Category category) {
         category.setId(UuidUtil.getShortUuid());
         categoryMapper.insert(category);
     }
 
     /**
-    * 更新
-    */
+     * 更新
+     */
     private void update(Category category) {
         categoryMapper.updateByPrimaryKey(category);
     }
 
     /**
-    * 删除
-    */
+     * 删除
+     */
     @Transactional
     public void delete(String id) {
         deleteChildren(id);
@@ -100,7 +94,6 @@ public class CategoryService {
             CategoryExample example = new CategoryExample();
             example.createCriteria().andParentEqualTo(category.getId());
             categoryMapper.deleteByExample(example);
-            log.info("删除子分类");
         }
     }
 }

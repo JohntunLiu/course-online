@@ -1,25 +1,22 @@
 package com.course.business.controller.admin;
 
-
 import com.course.server.dto.CourseContentFileDto;
 import com.course.server.dto.ResponseDto;
 import com.course.server.service.CourseContentFileService;
 import com.course.server.util.ValidatorUtil;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.ComponentScan;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
-@ComponentScan({"com.course.server"})
 @RequestMapping("/admin/course-content-file")
-@Slf4j
 public class CourseContentFileController {
 
+    private static final Logger LOG = LoggerFactory.getLogger(CourseContentFileController.class);
     public static final String BUSINESS_NAME = "课程内容文件";
-
 
     @Resource
     private CourseContentFileService courseContentFileService;
@@ -60,5 +57,4 @@ public class CourseContentFileController {
         courseContentFileService.delete(id);
         return responseDto;
     }
-
 }
