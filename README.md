@@ -90,7 +90,7 @@ Spring Boot, Spring Cloud, Redis, MySQL
 
   gateway和server模块中application.yml 配置 password (默认test123)
 
-- 
+  
 
   
 

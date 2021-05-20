@@ -57,15 +57,25 @@
        */
       listNew() {
         let _this = this;
+
+        //判断是否有缓存
+        //新课功能经常被访问, 适合用缓存
+        let news = SessionStorage.get("news");
+        if (!Tool.isEmpty(news)) {
+          _this.news = news;
+          return;
+        }
         _this.$ajax.get(process.env.VUE_APP_SERVER + '/business/web/course/list-new').then((response)=>{
           console.log("查询新上好课结果：", response);
           let resp = response.data;
           if (resp.success) {
             _this.news = resp.content;
+            //保存到缓存
+            SessionStorage.set("new", _this.news);
           }
         }).catch((response)=>{
           console.log("error：", response);
-        })
+        });
       },
     }
   }

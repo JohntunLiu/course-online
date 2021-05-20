@@ -8,7 +8,7 @@ spring:
   redis:
     host: 127.0.0.1
     port: 6379
-    password: "test123"
+#    password: "test123"
 
 mybatis:
   type-aliases-package: com.course.system.domain
